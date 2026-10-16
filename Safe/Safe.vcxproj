@@ -475,7 +475,7 @@
       <CLRUnmanagedCodeCheck>false</CLRUnmanagedCodeCheck>
       <LinkErrorReporting>NoErrorReport</LinkErrorReporting>
       <CLRSupportLastError>Disabled</CLRSupportLastError>
-      <CETCompat>true</CETCompat>
+      <CETCompat>false</CETCompat>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <FixedBaseAddress>false</FixedBaseAddress>
       <AssemblyDebug>true</AssemblyDebug>
@@ -763,7 +763,7 @@
       <CLRUnmanagedCodeCheck>false</CLRUnmanagedCodeCheck>
       <LinkErrorReporting>NoErrorReport</LinkErrorReporting>
       <CLRSupportLastError>Disabled</CLRSupportLastError>
-      <CETCompat>true</CETCompat>
+      <CETCompat>false</CETCompat>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <FixedBaseAddress>false</FixedBaseAddress>
       <AssemblyDebug>false</AssemblyDebug>
