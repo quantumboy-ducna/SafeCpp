@@ -47,19 +47,19 @@
 1771166506 source:f:\programming projects\c++ projects\visual studio projects\safe\safe\safetrade.cpp
 	"SafeTrade.h"
 
-1784711335 source:/home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeContextBase.cpp
+1792140094 source:/home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeContextBase.cpp
+	<algorithm>
 	<atomic>
 	<cstdarg>
 	<deque>
 	<mutex>
 	<string>
 	<typeinfo>
-	<utility>
 	<vector>
 	"SafeContextBase.h"
 	"SafeContextException.h"
 
-1784711335 /home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeContextBase.h
+1792140094 /home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeContextBase.h
 	<concepts>
 	<type_traits>
 	<typeinfo>
@@ -93,7 +93,7 @@
 1783414879 source:/home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeTrade.cpp
 	"SafeTrade.h"
 
-1784711335 source:/home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/Safe.cpp
+1792140094 source:/home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/Safe.cpp
 	<atomic>
 	<chrono>
 	<cstdlib>
@@ -111,6 +111,8 @@
 	"SafeNamespace.h"
 	"SafeString.h"
 	"SafeTrade.h"
+	<crtdbg.h>
+	<crtdbg.h>
 	<crtdbg.h>
 	<crtdbg.h>
 	<crtdbg.h>
@@ -196,7 +198,7 @@
 	"SafeContextBase.h"
 	"SafeContextException.h"
 
-1784711335 /home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeMemoryChunk.h
+1792140094 /home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeMemoryChunk.h
 	<concepts>
 	<string>
 	<type_traits>

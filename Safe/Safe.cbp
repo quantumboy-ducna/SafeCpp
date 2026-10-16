@@ -97,6 +97,7 @@
 					<Add option="-fsanitize=undefined-trap -fsanitize-undefined-trap-on-error" />
 					<Add option="-fPIC" />
 					<Add option="-m64" />
+					<Add option="-fomit-frame-pointer" />
 					<Add option="-O3" />
 					<Add option="-std=c++20" />
 					<Add option="-DCPP_SAFE_DYNAMICALLY_LINKED_LIBRARY_EXPORT" />
