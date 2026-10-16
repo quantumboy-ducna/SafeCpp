@@ -96,7 +96,7 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v145</PlatformToolset>
-    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <SpectreMitigation>Spectre</SpectreMitigation>
     <MSVCPreviewEnabled>false</MSVCPreviewEnabled>
@@ -105,7 +105,7 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v145</PlatformToolset>
-    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <SpectreMitigation>Spectre</SpectreMitigation>
     <MSVCPreviewEnabled>false</MSVCPreviewEnabled>
@@ -115,7 +115,7 @@
   </ImportGroup>
   <ImportGroup Label="Shared">
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug - Static Library|x64'">
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Static Library|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Static Library|ARM64'" Label="PropertySheets">
@@ -127,7 +127,7 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Dynamic Library|ARM64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release - Static Library|x64'">
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release - Static Library|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release - Static Library|ARM64'" Label="PropertySheets">
@@ -184,21 +184,23 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release - Dynamic Library|x64'">
     <TargetExt>.dll</TargetExt>
     <ManagedAssembly>false</ManagedAssembly>
-    <LinkDelaySign>false</LinkDelaySign>
     <RunCodeAnalysis>true</RunCodeAnalysis>
+    <LinkDelaySign>false</LinkDelaySign>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release - Dynamic Library|ARM64'">
     <TargetExt>.dll</TargetExt>
     <ManagedAssembly>false</ManagedAssembly>
-    <LinkDelaySign>false</LinkDelaySign>
     <RunCodeAnalysis>true</RunCodeAnalysis>
+    <LinkDelaySign>false</LinkDelaySign>
+    <LinkIncremental>false</LinkIncremental>
     <BuildAsX>false</BuildAsX>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Static Library|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_LIB;CPP_SAFE_STATICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions);</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;CPP_SAFE_STATICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -233,56 +235,40 @@
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalOptions>/bigobj /Ob3 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/bigobj /utf-8 %(AdditionalOptions)</AdditionalOptions>
       <FloatingPointModel>Precise</FloatingPointModel>
       <TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
     </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AssemblyDebug>true</AssemblyDebug>
-      <LargeAddressAware>true</LargeAddressAware>
-      <TerminalServerAware>false</TerminalServerAware>
-      <OptimizeReferences>false</OptimizeReferences>
-      <EnableCOMDATFolding>false</EnableCOMDATFolding>
-      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
-      <WindowsMetadataLinkDelaySign>false</WindowsMetadataLinkDelaySign>
-      <SupportUnloadOfDelayLoadedDLL>true</SupportUnloadOfDelayLoadedDLL>
-      <SupportNobindOfDelayLoadedDLL>true</SupportNobindOfDelayLoadedDLL>
-      <CLRUnmanagedCodeCheck>false</CLRUnmanagedCodeCheck>
-      <LinkErrorReporting>NoErrorReport</LinkErrorReporting>
-      <CLRSupportLastError>Disabled</CLRSupportLastError>
-      <CETCompat>false</CETCompat>
-      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-    </Link>
     <Lib>
       <UseUnicodeResponseFiles>true</UseUnicodeResponseFiles>
-    </Lib>
-    <Lib>
       <ErrorReporting>NoErrorReport</ErrorReporting>
-    </Lib>
-    <Lib>
       <TreatLibWarningAsErrors>false</TreatLibWarningAsErrors>
-    </Lib>
-    <Lib>
       <SubSystem>Console</SubSystem>
-    </Lib>
-    <Lib>
       <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
-    </Lib>
-    <Lib>
       <UseDynamicDebugging>false</UseDynamicDebugging>
       <Verbose>false</Verbose>
     </Lib>
     <CustomBuildStep>
       <TreatOutputAsContent>false</TreatOutputAsContent>
     </CustomBuildStep>
+    <ResourceCompile>
+      <NullTerminateStrings>false</NullTerminateStrings>
+      <ShowProgress>false</ShowProgress>
+    </ResourceCompile>
+    <Manifest>
+      <SuppressDependencyElement>false</SuppressDependencyElement>
+    </Manifest>
+    <Manifest>
+      <GenerateCategoryTags>false</GenerateCategoryTags>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Static Library|ARM64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_LIB;CPP_SAFE_STATICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions);</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;CPP_SAFE_STATICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -316,56 +302,40 @@
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalOptions>/bigobj /Ob3 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/bigobj /utf-8 %(AdditionalOptions)</AdditionalOptions>
       <FloatingPointModel>Precise</FloatingPointModel>
       <TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
+      <EnableEnhancedInstructionSet>CPUExtensionRequirementsARMv80</EnableEnhancedInstructionSet>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
     </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AssemblyDebug>true</AssemblyDebug>
-      <LargeAddressAware>true</LargeAddressAware>
-      <TerminalServerAware>false</TerminalServerAware>
-      <OptimizeReferences>false</OptimizeReferences>
-      <EnableCOMDATFolding>false</EnableCOMDATFolding>
-      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
-      <WindowsMetadataLinkDelaySign>false</WindowsMetadataLinkDelaySign>
-      <SupportUnloadOfDelayLoadedDLL>true</SupportUnloadOfDelayLoadedDLL>
-      <SupportNobindOfDelayLoadedDLL>true</SupportNobindOfDelayLoadedDLL>
-      <CLRUnmanagedCodeCheck>false</CLRUnmanagedCodeCheck>
-      <LinkErrorReporting>NoErrorReport</LinkErrorReporting>
-      <CLRSupportLastError>Disabled</CLRSupportLastError>
-      <CETCompat>false</CETCompat>
-      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-    </Link>
     <Lib>
       <UseUnicodeResponseFiles>true</UseUnicodeResponseFiles>
-    </Lib>
-    <Lib>
       <ErrorReporting>NoErrorReport</ErrorReporting>
-    </Lib>
-    <Lib>
       <TreatLibWarningAsErrors>false</TreatLibWarningAsErrors>
-    </Lib>
-    <Lib>
       <SubSystem>Console</SubSystem>
-    </Lib>
-    <Lib>
       <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
-    </Lib>
-    <Lib>
       <UseDynamicDebugging>false</UseDynamicDebugging>
       <Verbose>false</Verbose>
     </Lib>
     <CustomBuildStep>
       <TreatOutputAsContent>false</TreatOutputAsContent>
     </CustomBuildStep>
+    <ResourceCompile>
+      <NullTerminateStrings>false</NullTerminateStrings>
+      <ShowProgress>false</ShowProgress>
+    </ResourceCompile>
+    <Manifest>
+      <SuppressDependencyElement>false</SuppressDependencyElement>
+    </Manifest>
+    <Manifest>
+      <GenerateCategoryTags>false</GenerateCategoryTags>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Dynamic Library|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_LIB;CPP_SAFE_DYNAMICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions);</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;CPP_SAFE_DYNAMICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -400,9 +370,11 @@
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalOptions>/bigobj /Ob3 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/bigobj /utf-8 %(AdditionalOptions)</AdditionalOptions>
       <FloatingPointModel>Precise</FloatingPointModel>
       <TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -427,36 +399,25 @@
       <FixedBaseAddress>false</FixedBaseAddress>
       <AssemblyDebug>true</AssemblyDebug>
     </Link>
-    <Lib>
-      <UseUnicodeResponseFiles>true</UseUnicodeResponseFiles>
-    </Lib>
-    <Lib>
-      <ErrorReporting>NoErrorReport</ErrorReporting>
-    </Lib>
-    <Lib>
-      <TreatLibWarningAsErrors>false</TreatLibWarningAsErrors>
-    </Lib>
-    <Lib>
-      <SubSystem>Console</SubSystem>
-    </Lib>
-    <Lib>
-      <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
-    </Lib>
-    <Lib>
-      <UseDynamicDebugging>false</UseDynamicDebugging>
-    </Lib>
     <Manifest>
       <SuppressDependencyElement>false</SuppressDependencyElement>
     </Manifest>
     <Manifest>
       <GenerateCategoryTags>false</GenerateCategoryTags>
     </Manifest>
+    <CustomBuildStep>
+      <TreatOutputAsContent>false</TreatOutputAsContent>
+    </CustomBuildStep>
+    <ResourceCompile>
+      <NullTerminateStrings>false</NullTerminateStrings>
+      <ShowProgress>false</ShowProgress>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Dynamic Library|ARM64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_LIB;CPP_SAFE_DYNAMICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions);</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;CPP_SAFE_DYNAMICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -490,9 +451,11 @@
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalOptions>/bigobj /Ob3 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/bigobj /utf-8 %(AdditionalOptions)</AdditionalOptions>
       <FloatingPointModel>Precise</FloatingPointModel>
       <TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
+      <EnableEnhancedInstructionSet>CPUExtensionRequirementsARMv80</EnableEnhancedInstructionSet>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -512,35 +475,24 @@
       <CLRUnmanagedCodeCheck>false</CLRUnmanagedCodeCheck>
       <LinkErrorReporting>NoErrorReport</LinkErrorReporting>
       <CLRSupportLastError>Disabled</CLRSupportLastError>
-      <CETCompat>false</CETCompat>
+      <CETCompat>true</CETCompat>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <FixedBaseAddress>false</FixedBaseAddress>
       <AssemblyDebug>true</AssemblyDebug>
     </Link>
-    <Lib>
-      <UseUnicodeResponseFiles>true</UseUnicodeResponseFiles>
-    </Lib>
-    <Lib>
-      <ErrorReporting>NoErrorReport</ErrorReporting>
-    </Lib>
-    <Lib>
-      <TreatLibWarningAsErrors>false</TreatLibWarningAsErrors>
-    </Lib>
-    <Lib>
-      <SubSystem>Console</SubSystem>
-    </Lib>
-    <Lib>
-      <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
-    </Lib>
-    <Lib>
-      <UseDynamicDebugging>false</UseDynamicDebugging>
-    </Lib>
     <Manifest>
       <SuppressDependencyElement>false</SuppressDependencyElement>
     </Manifest>
     <Manifest>
       <GenerateCategoryTags>false</GenerateCategoryTags>
     </Manifest>
+    <CustomBuildStep>
+      <TreatOutputAsContent>false</TreatOutputAsContent>
+    </CustomBuildStep>
+    <ResourceCompile>
+      <NullTerminateStrings>false</NullTerminateStrings>
+      <ShowProgress>false</ShowProgress>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release - Static Library|x64'">
     <ClCompile>
@@ -548,7 +500,7 @@
       <FunctionLevelLinking>false</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_LIB;CPP_SAFE_STATICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions);</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;CPP_SAFE_STATICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -577,54 +529,35 @@
       <CompileAs>CompileAsCpp</CompileAs>
       <ErrorReporting>None</ErrorReporting>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalOptions>/bigobj /Ob3 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/bigobj /Ob3 /utf-8 %(AdditionalOptions)</AdditionalOptions>
       <FloatingPointModel>Precise</FloatingPointModel>
       <TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <LinkErrorReporting>NoErrorReport</LinkErrorReporting>
-      <SupportUnloadOfDelayLoadedDLL>true</SupportUnloadOfDelayLoadedDLL>
-      <SupportNobindOfDelayLoadedDLL>true</SupportNobindOfDelayLoadedDLL>
-      <CLRUnmanagedCodeCheck>false</CLRUnmanagedCodeCheck>
-      <CLRSupportLastError>Disabled</CLRSupportLastError>
-      <CETCompat>false</CETCompat>
-      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <OptimizeReferences>false</OptimizeReferences>
-      <EnableCOMDATFolding>false</EnableCOMDATFolding>
-      <AssemblyDebug>false</AssemblyDebug>
-      <LargeAddressAware>true</LargeAddressAware>
-      <TerminalServerAware>false</TerminalServerAware>
-      <PreventDllBinding>false</PreventDllBinding>
-      <TreatLinkerWarningAsErrors>false</TreatLinkerWarningAsErrors>
-      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
-      <WindowsMetadataLinkDelaySign>false</WindowsMetadataLinkDelaySign>
-    </Link>
     <Lib>
       <UseUnicodeResponseFiles>true</UseUnicodeResponseFiles>
-    </Lib>
-    <Lib>
       <ErrorReporting>NoErrorReport</ErrorReporting>
-    </Lib>
-    <Lib>
       <TreatLibWarningAsErrors>false</TreatLibWarningAsErrors>
-    </Lib>
-    <Lib>
       <SubSystem>Console</SubSystem>
-    </Lib>
-    <Lib>
       <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
-    </Lib>
-    <Lib>
       <UseDynamicDebugging>false</UseDynamicDebugging>
       <Verbose>false</Verbose>
     </Lib>
     <CustomBuildStep>
       <TreatOutputAsContent>false</TreatOutputAsContent>
     </CustomBuildStep>
+    <ResourceCompile>
+      <NullTerminateStrings>false</NullTerminateStrings>
+      <ShowProgress>false</ShowProgress>
+    </ResourceCompile>
+    <Manifest>
+      <SuppressDependencyElement>false</SuppressDependencyElement>
+    </Manifest>
+    <Manifest>
+      <GenerateCategoryTags>false</GenerateCategoryTags>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release - Static Library|ARM64'">
     <ClCompile>
@@ -632,7 +565,7 @@
       <FunctionLevelLinking>false</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_LIB;CPP_SAFE_STATICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions);</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;CPP_SAFE_STATICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -660,54 +593,35 @@
       <CompileAs>CompileAsCpp</CompileAs>
       <ErrorReporting>None</ErrorReporting>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalOptions>/bigobj /Ob3 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/bigobj /Ob3 /utf-8 %(AdditionalOptions)</AdditionalOptions>
       <FloatingPointModel>Precise</FloatingPointModel>
       <TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+      <EnableEnhancedInstructionSet>CPUExtensionRequirementsARMv80</EnableEnhancedInstructionSet>
     </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <LinkErrorReporting>NoErrorReport</LinkErrorReporting>
-      <SupportUnloadOfDelayLoadedDLL>true</SupportUnloadOfDelayLoadedDLL>
-      <SupportNobindOfDelayLoadedDLL>true</SupportNobindOfDelayLoadedDLL>
-      <CLRUnmanagedCodeCheck>false</CLRUnmanagedCodeCheck>
-      <CLRSupportLastError>Disabled</CLRSupportLastError>
-      <CETCompat>false</CETCompat>
-      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <OptimizeReferences>false</OptimizeReferences>
-      <EnableCOMDATFolding>false</EnableCOMDATFolding>
-      <AssemblyDebug>false</AssemblyDebug>
-      <LargeAddressAware>true</LargeAddressAware>
-      <TerminalServerAware>false</TerminalServerAware>
-      <PreventDllBinding>false</PreventDllBinding>
-      <TreatLinkerWarningAsErrors>false</TreatLinkerWarningAsErrors>
-      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
-      <WindowsMetadataLinkDelaySign>false</WindowsMetadataLinkDelaySign>
-    </Link>
     <Lib>
       <UseUnicodeResponseFiles>true</UseUnicodeResponseFiles>
-    </Lib>
-    <Lib>
       <ErrorReporting>NoErrorReport</ErrorReporting>
-    </Lib>
-    <Lib>
       <TreatLibWarningAsErrors>false</TreatLibWarningAsErrors>
-    </Lib>
-    <Lib>
       <SubSystem>Console</SubSystem>
-    </Lib>
-    <Lib>
       <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
-    </Lib>
-    <Lib>
       <UseDynamicDebugging>false</UseDynamicDebugging>
       <Verbose>false</Verbose>
     </Lib>
     <CustomBuildStep>
       <TreatOutputAsContent>false</TreatOutputAsContent>
     </CustomBuildStep>
+    <ResourceCompile>
+      <NullTerminateStrings>false</NullTerminateStrings>
+      <ShowProgress>false</ShowProgress>
+    </ResourceCompile>
+    <Manifest>
+      <SuppressDependencyElement>false</SuppressDependencyElement>
+    </Manifest>
+    <Manifest>
+      <GenerateCategoryTags>false</GenerateCategoryTags>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release - Dynamic Library|x64'">
     <ClCompile>
@@ -715,7 +629,7 @@
       <FunctionLevelLinking>false</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_LIB;CPP_SAFE_DYNAMICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions);</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;CPP_SAFE_DYNAMICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -744,10 +658,12 @@
       <CompileAs>CompileAsCpp</CompileAs>
       <ErrorReporting>None</ErrorReporting>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalOptions>/bigobj /Ob3 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/bigobj /Ob3 /utf-8 %(AdditionalOptions)</AdditionalOptions>
       <FloatingPointModel>Precise</FloatingPointModel>
       <TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
-      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -771,31 +687,22 @@
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <FixedBaseAddress>false</FixedBaseAddress>
       <AssemblyDebug>false</AssemblyDebug>
+      <LinkStatus>true</LinkStatus>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
-    <Lib>
-      <UseUnicodeResponseFiles>true</UseUnicodeResponseFiles>
-    </Lib>
-    <Lib>
-      <ErrorReporting>NoErrorReport</ErrorReporting>
-    </Lib>
-    <Lib>
-      <TreatLibWarningAsErrors>false</TreatLibWarningAsErrors>
-    </Lib>
-    <Lib>
-      <SubSystem>Console</SubSystem>
-    </Lib>
-    <Lib>
-      <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
-    </Lib>
-    <Lib>
-      <UseDynamicDebugging>false</UseDynamicDebugging>
-    </Lib>
     <Manifest>
       <SuppressDependencyElement>false</SuppressDependencyElement>
     </Manifest>
     <Manifest>
       <GenerateCategoryTags>false</GenerateCategoryTags>
     </Manifest>
+    <CustomBuildStep>
+      <TreatOutputAsContent>false</TreatOutputAsContent>
+    </CustomBuildStep>
+    <ResourceCompile>
+      <NullTerminateStrings>false</NullTerminateStrings>
+      <ShowProgress>false</ShowProgress>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release - Dynamic Library|ARM64'">
     <ClCompile>
@@ -803,7 +710,7 @@
       <FunctionLevelLinking>false</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_LIB;CPP_SAFE_DYNAMICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions);</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;CPP_SAFE_DYNAMICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions);</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -831,10 +738,12 @@
       <CompileAs>CompileAsCpp</CompileAs>
       <ErrorReporting>None</ErrorReporting>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalOptions>/bigobj /Ob3 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/bigobj /Ob3 /utf-8 %(AdditionalOptions)</AdditionalOptions>
       <FloatingPointModel>Precise</FloatingPointModel>
       <TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
-      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <EnableEnhancedInstructionSet>CPUExtensionRequirementsARMv80</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -854,35 +763,26 @@
       <CLRUnmanagedCodeCheck>false</CLRUnmanagedCodeCheck>
       <LinkErrorReporting>NoErrorReport</LinkErrorReporting>
       <CLRSupportLastError>Disabled</CLRSupportLastError>
-      <CETCompat>false</CETCompat>
+      <CETCompat>true</CETCompat>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <FixedBaseAddress>false</FixedBaseAddress>
       <AssemblyDebug>false</AssemblyDebug>
+      <LinkStatus>true</LinkStatus>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
-    <Lib>
-      <UseUnicodeResponseFiles>true</UseUnicodeResponseFiles>
-    </Lib>
-    <Lib>
-      <ErrorReporting>NoErrorReport</ErrorReporting>
-    </Lib>
-    <Lib>
-      <TreatLibWarningAsErrors>false</TreatLibWarningAsErrors>
-    </Lib>
-    <Lib>
-      <SubSystem>Console</SubSystem>
-    </Lib>
-    <Lib>
-      <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
-    </Lib>
-    <Lib>
-      <UseDynamicDebugging>false</UseDynamicDebugging>
-    </Lib>
     <Manifest>
       <SuppressDependencyElement>false</SuppressDependencyElement>
     </Manifest>
     <Manifest>
       <GenerateCategoryTags>false</GenerateCategoryTags>
     </Manifest>
+    <CustomBuildStep>
+      <TreatOutputAsContent>false</TreatOutputAsContent>
+    </CustomBuildStep>
+    <ResourceCompile>
+      <NullTerminateStrings>false</NullTerminateStrings>
+      <ShowProgress>false</ShowProgress>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Safe.h" />

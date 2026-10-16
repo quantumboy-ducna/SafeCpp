@@ -184,20 +184,6 @@ namespace Safe
 		/// <returns>SafeContextBase&amp;</returns>
 		static SafeContextBase& constructInstanceOnMemoryHeap();
 
-		/// <summary>
-		///		static
-		/// </summary>
-		/// <param name="arraySize"></param>
-		/// <returns>SafeContextBase*</returns>
-		static SafeContextBase* allocateArrayOnMemoryHeap(const std::size_t& arraySize);
-
-		/// <summary>
-		///		static
-		/// </summary>
-		/// <param name="chunkCardinality"></param>
-		/// <returns>SafeContextBase*</returns>
-		static SafeContextBase* allocateChunkOnMemoryHeap(const std::size_t& chunkCardinality);
-
 	private:
 		/// <summary>
 		///		static
@@ -206,22 +192,6 @@ namespace Safe
 		/// <param name="instancePointer"></param>
 		/// <returns>void</returns>
 		static void destructInstanceOnMemoryHeap(SafeContextBase* const instancePointer) noexcept;
-
-		/// <summary>
-		///		static
-		///		noexcept
-		/// </summary>
-		/// <param name="arrayPointer"></param>
-		/// <returns>void</returns>
-		static void deallocateArrayOnMemoryHeap(SafeContextBase* const arrayPointer) noexcept;
-
-		/// <summary>
-		///		static
-		///		noexcept
-		/// </summary>
-		/// <param name="chunkPointer"></param>
-		/// <returns>void</returns>
-		static void deallocateChunkOnMemoryHeap(SafeContextBase* const chunkPointer) noexcept;
 
 		/// <summary>
 		///		static
@@ -268,10 +238,11 @@ namespace Safe
 
 		/// <summary>
 		///		static
+		///		noexcept
 		/// </summary>
 		/// <param name="typeInformation"></param>
 		/// <returns>SafeContextBase*</returns>
-		static SafeContextBase* upcycle(const std::type_info& typeInformation);
+		static SafeContextBase* upcycle(const std::type_info& typeInformation) noexcept;
 
 		/// <summary>
 		///		static
@@ -282,6 +253,13 @@ namespace Safe
 		static void finalize(SafeContextBase*& pointer) noexcept;
 
 	public:
+		/// <summary>
+		///		static
+		///		noexcept
+		/// </summary>
+		/// <returns>void</returns>
+		static void enableMultithreadedMode() noexcept;
+
 		/// <summary>
 		///		static
 		/// </summary>
@@ -314,14 +292,14 @@ namespace Safe
 			{
 				SafeContextBase::reconstructSafely(recycledPointer,[](SafeContextBase* const instancePointer) -> void
 				{
-					::new (instancePointer) GenericTypeOfSafeContextDerivative();
+					::new (static_cast<GenericTypeOfSafeContextDerivative*>(instancePointer)) GenericTypeOfSafeContextDerivative();
 				});
 
 				return *recycledPointer;
 			}
 			else
 			{
-				return *(new GenericTypeOfSafeContextDerivative());
+				return *(::new GenericTypeOfSafeContextDerivative());
 			}
 		};
 

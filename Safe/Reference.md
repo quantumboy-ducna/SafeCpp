@@ -181,22 +181,6 @@ public:
 	
 This helper method allocates and constructs an instance of type `SafeContextBase` on memory heap.
 
-- `allocateArrayOnMemoryHeap(const std::size_t& arraySize)`
-```c++
-public:
-	static SafeContextBase* allocateArrayOnMemoryHeap(const std::size_t& arraySize);
-```
-	
-This helper method allocates and constructs an array of instance(s) of type `SafeContextBase` on memory heap.
-
-- `allocateChunkOnMemoryHeap(const std::size_t& chunkCardinality)`
-```c++
-public:
-	static SafeContextBase* allocateChunkOnMemoryHeap(const std::size_t& chunkCardinality);
-```
-	
-This helper method allocates and constructs a memory chunk of instance(s) of type `SafeContextBase` on memory heap.
-
 - `destructInstanceOnMemoryHeap(SafeContextBase* const instancePointer)`
 ```c++
 private:
@@ -276,6 +260,14 @@ private:
 ```
 
 This helper method finalizes a pointer to an instance of type `SafeContextBase` by setting it to `nullptr`.
+
+- `enableMultithreadedMode()`
+```c++
+public:
+	static void enableMultithreadedMode() noexcept;
+```
+
+This method enables multi-threaded mode for the safe context. Once enabled, it can't be reverted to single-threaded mode. `SafeMemoryManager` will then be guarded by synchronization primitives to ensure thread-safety.
 
 - `recycle(SafeContextBase& instanceReference)`
 ```c++
@@ -360,6 +352,28 @@ template<typename GenericTypeOfSafeContextDerivative> class SafeContextBase::Saf
 ##### Description
 
 Declared and defined in `SafeMemoryChunk.h`. A specialized class template for bulk allocation. This class template inherits `SafeContextBase` and manages multiple instance(s) of type `GenericTypeOfSafeContextDerivative` on a continguous block of memory. `GenericTypeOfSafeContextDerivative` must be a type that inherits `SafeContextBase`.
+
+
+
+##### Member Types
+
+- `SafeMemoryChunkElementMutator`
+```c++
+public:
+	typedef void (*SafeMemoryChunkElementMutator)(GenericTypeOfSafeContextDerivative* const instancePointer);
+```
+
+This functional pointer type acts as the function prototype for invoking the default constructor of any derivative of `SafeContextBase`.
+
+
+##### Type aliases
+
+- `SafeVector`
+```c++
+	template<typename GenericTypeOfSafeContextDerivative> using SafeVector = SafeContextBase::SafeMemoryChunk<GenericTypeOfSafeContextDerivative>;
+```
+
+An alias that serves as a safe version of `std::vector`.
 
 
 ##### Methods
@@ -498,17 +512,6 @@ template<typename GenericTypeOfReturn,typename ...GenericTypesOfArguments> class
 ##### Description
 
 Declared and defined in `SafeFunction.h`. A functional class type that inherits `SafeContextBase` and wraps `std::function` under the safe context.
-
-
-##### Member Types
-
-- `SafeMemoryChunkElementMutator`
-```c++
-public:
-	typedef void (*SafeMemoryChunkElementMutator)(GenericTypeOfSafeContextDerivative* const instancePointer);
-```
-
-This functional pointer type acts as the function prototype for invoking the default constructor of any derivative of `SafeContextBase`.
 
 
 ##### Methods

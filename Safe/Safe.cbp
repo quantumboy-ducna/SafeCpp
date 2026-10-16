@@ -4,27 +4,30 @@
 	<Project>
 		<Option title="Safe" />
 		<Option pch_mode="2" />
-		<Option compiler="gcc" />
+		<Option compiler="clang" />
 		<Build>
 			<Target title="Debug - Static Library">
 				<Option output="bin/Debug - Static Library/Safe.a" prefix_auto="0" extension_auto="0" />
 				<Option working_dir="" />
 				<Option object_output="obj/Debug - Static Library/" />
 				<Option type="2" />
-				<Option compiler="gcc" />
+				<Option compiler="clang" />
 				<Option projectIncludeDirsRelation="-1" />
 				<Option projectLibDirsRelation="-1" />
 				<Compiler>
-					<Add option="-std=c++20" />
+					<Add option="-ftrapv" />
+					<Add option="-fsanitize=undefined-trap -fsanitize-undefined-trap-on-error" />
 					<Add option="-m64" />
+					<Add option="-gdwarf-2" />
+					<Add option="-std=c++20" />
 					<Add option="-gdwarf" />
 					<Add option="-Og" />
 				</Compiler>
 				<Linker>
+					<Add option="-m64" />
 					<Add option="-static-libstdc++" />
 					<Add option="-static-libgcc" />
 					<Add option="-static" />
-					<Add option="-m64" />
 					<LinkerExe value="CppCompiler" />
 				</Linker>
 				<MakeCommands>
@@ -41,20 +44,23 @@
 				<Option working_dir="" />
 				<Option object_output="obj/Release - Static Library/" />
 				<Option type="2" />
-				<Option compiler="gcc" />
+				<Option compiler="clang" />
 				<Option createDefFile="1" />
 				<Compiler>
+					<Add option="-ftrapv" />
+					<Add option="-fsanitize=undefined-trap -fsanitize-undefined-trap-on-error" />
+					<Add option="-m64" />
+					<Add option="-fomit-frame-pointer" />
 					<Add option="-O3" />
 					<Add option="-std=c++20" />
-					<Add option="-m64" />
 					<Add option="-DCPP_SAFE_STATICALLY_LINKED_LIBRARY_EXPORT" />
 				</Compiler>
 				<Linker>
+					<Add option="-m64" />
 					<Add option="-O3" />
 					<Add option="-static-libstdc++" />
 					<Add option="-static-libgcc" />
 					<Add option="-static" />
-					<Add option="-m64" />
 					<LinkerExe value="CppCompiler" />
 				</Linker>
 			</Target>
@@ -63,11 +69,14 @@
 				<Option working_dir="bin/Debug - Dynamic Library/" />
 				<Option object_output="obj/Debug - Dynamic Library/" />
 				<Option type="3" />
-				<Option compiler="gcc" />
+				<Option compiler="clang" />
 				<Compiler>
-					<Add option="-std=c++20" />
+					<Add option="-ftrapv" />
+					<Add option="-fsanitize=undefined-trap -fsanitize-undefined-trap-on-error" />
 					<Add option="-fPIC" />
 					<Add option="-m64" />
+					<Add option="-gdwarf-2" />
+					<Add option="-std=c++20" />
 					<Add option="-gdwarf" />
 					<Add option="-Og" />
 					<Add option="-DCPP_SAFE_DYNAMICALLY_LINKED_LIBRARY_EXPORT" />
@@ -82,33 +91,34 @@
 				<Option working_dir="bin/Release - Dynamic Library/" />
 				<Option object_output="obj/Release - Dynamic Library/" />
 				<Option type="3" />
-				<Option compiler="gcc" />
+				<Option compiler="clang" />
 				<Compiler>
-					<Add option="-O3" />
-					<Add option="-std=c++20" />
+					<Add option="-ftrapv" />
+					<Add option="-fsanitize=undefined-trap -fsanitize-undefined-trap-on-error" />
 					<Add option="-fPIC" />
 					<Add option="-m64" />
+					<Add option="-O3" />
+					<Add option="-std=c++20" />
 					<Add option="-DCPP_SAFE_DYNAMICALLY_LINKED_LIBRARY_EXPORT" />
 				</Compiler>
 				<Linker>
-					<Add option="-O3" />
 					<Add option="-m64" />
+					<Add option="-O3" />
 					<LinkerExe value="CppCompiler" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-std=c++20" />
-			<Add option="-pg" />
+			<Add option="-ftrapv" />
+			<Add option="-fsanitize=undefined-trap -fsanitize-undefined-trap-on-error" />
 			<Add option="-m64" />
-			<Add option="-Og" />
+			<Add option="-std=c++20" />
 			<Add option="-DCPP_SAFE_STATICALLY_LINKED_LIBRARY_EXPORT" />
 		</Compiler>
 		<Linker>
-			<Add option="-pg" />
+			<Add option="-m64" />
 			<Add option="-static-libstdc++" />
 			<Add option="-static-libgcc" />
-			<Add option="-m64" />
 		</Linker>
 		<Unit filename="Safe.cpp" />
 		<Unit filename="Safe.h" />

@@ -18,13 +18,13 @@
 /// </remarks>
 
 /** Inclusion(s) of C++ standard library header file(s).**/
+#include <algorithm>
 #include <atomic>
 #include <cstdarg>
 #include <deque>
 #include <mutex>
 #include <string>
 #include <typeinfo>
-#include <utility>
 #include <vector>
 
 /** Inclusion(s) of project's C++ header file(s).**/
@@ -51,10 +51,8 @@ namespace Safe
 
 
 		deque<SafeContextBase*> trackedInstancePointerQueue;
-		deque<pair<SafeContextBase*,size_t>> trackedArrayPointerMetadataQueue;
-		deque<pair<SafeContextBase*,size_t>> trackedChunkPointerMetadataQueue;
 		vector<SafeContextBase*> recycledInstancePointers;
-		mutex memoryTrackerSynchronizationGuard;
+		recursive_mutex memoryTrackerSynchronizationGuard;
 		mutex memoryRecyclerSynchronizationGuard;
 
 
@@ -66,7 +64,54 @@ namespace Safe
 		void shutdown() noexcept;
 
 	public:
-		static SafeMemoryManager StaticMemoryManager;
+		/// <summary>
+		///		C++ class: `ScopedClassification`.
+		/// </summary>
+		class ScopedClassification final
+		{
+		private:
+			unique_lock<recursive_mutex> locker;
+			bool previousState;
+
+		public:
+			/// <summary>
+			///		Constructor of `ScopedClassification`.
+			/// </summary>
+			/// <param name="value"></param>
+			explicit ScopedClassification(const bool& state);
+
+			/// <summary>
+			///		Copy constructor of `ScopedClassification`.
+			/// </summary>
+			ScopedClassification(const ScopedClassification&) = delete;
+
+			/// <summary>
+			///		Move constructor of `ScopedClassification`.
+			/// </summary>
+			ScopedClassification(ScopedClassification&&) = delete;
+
+			/// <summary>
+			///		Destructor of `ScopedClassification`.
+			/// </summary>
+			~ScopedClassification() noexcept;
+
+			/// <summary>
+			///		dynamic
+			///		operator=
+			/// </summary>
+			/// <returns>ScopedClassification&amp;</returns>
+			ScopedClassification& operator=(const ScopedClassification&) = delete;
+
+			/// <summary>
+			///		dynamic
+			///		operator=
+			/// </summary>
+			/// <returns>ScopedClassification&amp;</returns>
+			ScopedClassification& operator=(ScopedClassification&&) = delete;
+		};
+
+		static atomic<bool> Multithreading;
+		static SafeMemoryManager& StaticMemoryManagerReference;
 
 
 		/// <summary>
@@ -148,6 +193,13 @@ namespace Safe
 		static void reconstructSafely(SafeContextBase* const instancePointer,const DefaultConstructionInvoker& constructionInvoker);
 
 		/// <summary>
+		///		static
+		///		noexcept
+		/// </summary>
+		/// <returns>SafeContextBase::SafeMemoryManager&amp;</returns>
+		static SafeContextBase::SafeMemoryManager& initializeStaticMemoryManager() noexcept;
+
+		/// <summary>
 		///		dynamic
 		/// </summary>
 		/// <param name="instancePointer"></param>
@@ -156,40 +208,11 @@ namespace Safe
 
 		/// <summary>
 		///		dynamic
-		/// </summary>
-		/// <param name="arrayPointer"></param>
-		/// <returns>void</returns>
-		void emplaceArray(SafeContextBase* const arrayPointer,const size_t& arraySize);
-
-		/// <summary>
-		///		dynamic
-		/// </summary>
-		/// <param name="chunkPointer"></param>
-		/// <returns>void</returns>
-		void emplaceChunk(SafeContextBase* const chunkPointer,const size_t& chunkSize);
-
-		/// <summary>
-		///		dynamic
 		///		noexcept
 		/// </summary>
 		/// <param name="instancePointer"></param>
 		/// <returns>void</returns>
 		void displaceInstance(SafeContextBase* const instancePointer) noexcept;
-
-		/// <summary>
-		///		dynamic
-		///		noexcept
-		/// </summary>
-		/// <param name="arrayPointer"></param>
-		/// <returns>void</returns>
-		void displaceArray(SafeContextBase* const arrayPointer) noexcept;
-
-		/// <summary>
-		///		dynamic
-		/// </summary>
-		/// <param name="chunkPointer"></param>
-		/// <returns>void</returns>
-		void displaceChunk(SafeContextBase* const chunkPointer);
 
 		/// <summary>
 		///		dynamic
@@ -208,10 +231,11 @@ namespace Safe
 
 		/// <summary>
 		///		dynamic
+		///		noexcept
 		/// </summary>
 		/// <param name="typeInformation"></param>
 		/// <returns>SafeContextBase*</returns>
-		SafeContextBase* upcycle(const type_info& typeInformation);
+		SafeContextBase* upcycle(const type_info& typeInformation) noexcept;
 
 		/// <summary>
 		///		dynamic
@@ -221,11 +245,24 @@ namespace Safe
 		void forceShutdown(const SafeContextBase* pointerInDangerZone);
 	};
 
+
+	SafeContextBase::SafeMemoryManager::ScopedClassification::ScopedClassification(const bool& state) : locker(ClassificationGuard,std::defer_lock),previousState(false)
+	{
+		if (Multithreading.load() == true)
+		{
+			(this->locker).lock();
+		}
+
+		this->previousState = Classification.exchange(state);
+	};
+	SafeContextBase::SafeMemoryManager::ScopedClassification::~ScopedClassification() noexcept
+	{
+		Classification.store(previousState);
+	};
+
 	SafeContextBase::SafeMemoryManager::SafeMemoryManager() noexcept : memoryTrackerSynchronizationGuard(),memoryRecyclerSynchronizationGuard()
 	{
 		this->trackedInstancePointerQueue = deque<SafeContextBase*>();
-		this->trackedArrayPointerMetadataQueue = deque<pair<SafeContextBase*,size_t>>();
-		this->trackedChunkPointerMetadataQueue = deque<pair<SafeContextBase*,size_t>>();
 		this->recycledInstancePointers = vector<SafeContextBase*>();
 	};
 	SafeContextBase::SafeMemoryManager::~SafeMemoryManager() noexcept
@@ -239,7 +276,7 @@ namespace Safe
 
 		if (SafeContextBase::SafeMemoryManager::getClassification() == true)
 		{
-			SafeMemoryManager::StaticMemoryManager.emplaceInstance(this);
+			SafeMemoryManager::StaticMemoryManagerReference.emplaceInstance(this);
 		}
 	};
 	SafeContextBase::SafeContextBase(const bool& classification)
@@ -248,7 +285,7 @@ namespace Safe
 
 		if (classification == true)
 		{
-			SafeMemoryManager::StaticMemoryManager.emplaceInstance(this);
+			SafeMemoryManager::StaticMemoryManagerReference.emplaceInstance(this);
 		}
 	};
 	SafeContextBase::SafeContextBase(const SafeContextBase& other) noexcept(false)
@@ -257,7 +294,7 @@ namespace Safe
 
 		if (SafeContextBase::SafeMemoryManager::getClassification() == true)
 		{
-			SafeMemoryManager::StaticMemoryManager.emplaceInstance(this);
+			SafeMemoryManager::StaticMemoryManagerReference.emplaceInstance(this);
 		}
 	};
 	SafeContextBase::SafeContextBase(SafeContextBase&& other) noexcept(false)
@@ -266,18 +303,18 @@ namespace Safe
 
 		if (SafeContextBase::SafeMemoryManager::getClassification() == true)
 		{
-			SafeMemoryManager::StaticMemoryManager.emplaceInstance(this);
+			SafeMemoryManager::StaticMemoryManagerReference.emplaceInstance(this);
 		}
 	};
 	SafeContextBase::~SafeContextBase() noexcept(false)
 	{
 		if (SafeContextBase::SafeMemoryManager::getClassification() == true)
 		{
-			SafeMemoryManager::StaticMemoryManager.displaceInstance(this);
+			SafeMemoryManager::StaticMemoryManagerReference.displaceInstance(this);
 
 			if (this->life == false)
 			{
-				SafeMemoryManager::StaticMemoryManager.forceShutdown(this);
+				SafeMemoryManager::StaticMemoryManagerReference.forceShutdown(this);
 
 				throw SafeContextException("The destructor of `SafeContextBase` is invoked manually on a polymorphic instance of type `SafeContextBase` which isn't managed or tracked!");
 			}
@@ -292,140 +329,145 @@ namespace Safe
 	atomic<bool> SafeContextBase::SafeMemoryManager::Classification{true};
 	recursive_mutex SafeContextBase::SafeMemoryManager::ClassificationGuard = recursive_mutex();
 	mutex SafeContextBase::SafeMemoryManager::ShutdownGuard = mutex();
-	SafeContextBase::SafeMemoryManager SafeContextBase::SafeMemoryManager::StaticMemoryManager = SafeContextBase::SafeMemoryManager();
+	atomic<bool> SafeContextBase::SafeMemoryManager::Multithreading{false};
+	SafeContextBase::SafeMemoryManager& SafeContextBase::SafeMemoryManager::StaticMemoryManagerReference = SafeContextBase::SafeMemoryManager::initializeStaticMemoryManager();
 
 
 	void SafeContextBase::SafeMemoryManager::shutdown() noexcept
 	{
 		size_t i = 0;
-		lock_guard<mutex> shutdownLock(ShutdownGuard);
-
-		while (true)
+		
+		if (SafeContextBase::SafeMemoryManager::Multithreading == true)
 		{
-			SafeContextBase* currentInstancePointer = nullptr;
+			lock_guard<mutex> shutdownLock(ShutdownGuard);
 
-			if (currentInstancePointer == nullptr)
+			while (true)
 			{
-				lock_guard<mutex> trackerLock(this->memoryTrackerSynchronizationGuard);
+				SafeContextBase* currentInstancePointer = nullptr;
 
-				if ((this->trackedInstancePointerQueue).empty() == true)
+				if (currentInstancePointer == nullptr)
 				{
-					break;
+					lock_guard<recursive_mutex> trackerLock(this->memoryTrackerSynchronizationGuard);
+
+					if ((this->trackedInstancePointerQueue).empty() == true)
+					{
+						break;
+					}
+					else
+					{
+						currentInstancePointer = (this->trackedInstancePointerQueue).front();
+						(this->trackedInstancePointerQueue).pop_front();
+					}
 				}
-				else
-				{
-					currentInstancePointer = (this->trackedInstancePointerQueue).front();
-					(this->trackedInstancePointerQueue).pop_front();
-				}
+
+				::delete currentInstancePointer;
 			}
-
-			delete currentInstancePointer;
 		}
-
-		SafeMemoryManager::setClassification(false);
-
-		while (true)
+		else
 		{
-			pair<SafeContextBase*,size_t> currentArrayPointerMetadata = make_pair<SafeContextBase*&&,size_t&&>(nullptr,0);
-
-			if (currentArrayPointerMetadata.first == nullptr)
+			while (true)
 			{
-				lock_guard<mutex> trackerLock(this->memoryTrackerSynchronizationGuard);
+				SafeContextBase* currentInstancePointer = nullptr;
 
-				if ((this->trackedArrayPointerMetadataQueue).empty() == true)
+				if (currentInstancePointer == nullptr)
 				{
-					break;
+					if ((this->trackedInstancePointerQueue).empty() == true)
+					{
+						break;
+					}
+					else
+					{
+						currentInstancePointer = (this->trackedInstancePointerQueue).front();
+						(this->trackedInstancePointerQueue).pop_front();
+					}
 				}
-				else
-				{
-					currentArrayPointerMetadata = (this->trackedArrayPointerMetadataQueue).front();
-					(this->trackedArrayPointerMetadataQueue).pop_front();
-				}
-			}
 
-			for (i = 0;i < currentArrayPointerMetadata.second;i++)
-			{
-				((currentArrayPointerMetadata.first)[i]).~SafeContextBase();
+				::delete currentInstancePointer;
 			}
-
-			delete[] currentArrayPointerMetadata.first;
 		}
-
-		while (true)
-		{
-			pair<SafeContextBase*,size_t> currentChunkPointerMetadata = make_pair<SafeContextBase*&&,size_t&&>(nullptr,0);
-
-			if (currentChunkPointerMetadata.first == nullptr)
-			{
-				lock_guard<mutex> trackerLock(this->memoryTrackerSynchronizationGuard);
-
-				if (this->trackedChunkPointerMetadataQueue.empty() == true)
-				{
-					break;
-				}
-				else
-				{
-					currentChunkPointerMetadata = (this->trackedChunkPointerMetadataQueue).front();
-					(this->trackedChunkPointerMetadataQueue).pop_front();
-				}
-			}
-
-			for (i = 0;i < currentChunkPointerMetadata.second;i++)
-			{
-				((currentChunkPointerMetadata.first)[i]).~SafeContextBase();
-			}
-
-			delete currentChunkPointerMetadata.first;
-		}
-
-		SafeMemoryManager::setClassification(true);
 	};
 
 	bool SafeContextBase::SafeMemoryManager::getClassification() noexcept
 	{
-		lock_guard<recursive_mutex> classificationLock(ClassificationGuard);
+		if (SafeContextBase::SafeMemoryManager::Multithreading == true)
+		{
+			lock_guard<recursive_mutex> classificationLock(ClassificationGuard);
 
-		return Classification.load();
+			return Classification.load();
+		}
+		else
+		{
+			return Classification.load();
+		}
 	};
 
 	void SafeContextBase::SafeMemoryManager::setClassification(const bool& classification) noexcept
 	{
-		lock_guard<recursive_mutex> classificationLock(ClassificationGuard);
+		if (SafeContextBase::SafeMemoryManager::Multithreading == true)
+		{
+			lock_guard<recursive_mutex> classificationLock(ClassificationGuard);
 
-		SafeMemoryManager::Classification.store(classification);
+			SafeMemoryManager::Classification.store(classification);
+		}
+		else
+		{
+			SafeMemoryManager::Classification.store(classification);
+		}
 	};
 
 	void SafeContextBase::SafeMemoryManager::helpInitializeChunk(vector<SafeContextBase*>& chunkBufferElementPointers,const size_t& cardinality,const DefaultConstructionInvoker& constructionInvoker)
 	{
-		lock_guard<recursive_mutex> classificationLock(ClassificationGuard);
-		SafeMemoryManager::Classification.store(false);
+		SafeContextBase::SafeMemoryManager::ScopedClassification classifier(false);
 		size_t i = 0;
+		size_t constructionCardinality = 0;
 
-		for (i = 0;i < cardinality;i++)
+		try
 		{
-			constructionInvoker(chunkBufferElementPointers[i]);
+			for (i = 0;i < cardinality;i++)
+			{
+				constructionInvoker(chunkBufferElementPointers[i]);
+				constructionCardinality++;
+			}
 		}
+		catch (...)
+		{
+			for (i = 0;i < constructionCardinality;i++)
+			{
+				(chunkBufferElementPointers[i])->~SafeContextBase();
+			}
 
-		SafeMemoryManager::Classification.store(true);
+			throw;
+		}
 	};
 
 	void SafeContextBase::SafeMemoryManager::helpDuplicateChunk(vector<SafeContextBase*>& chunkBufferElementPointers,const vector<SafeContextBase*>& sourceElementPointers,const size_t& cardinality,const CopyConstructionInvoker& constructionInvoker)
 	{
-		lock_guard<recursive_mutex> classificationLock(ClassificationGuard);
-		SafeMemoryManager::Classification.store(false);
+		SafeContextBase::SafeMemoryManager::ScopedClassification classifier(false);
 		size_t i = 0;
+		size_t constructionCardinality = 0;
 
-		for (i = 0;i < cardinality;i++)
+		try
 		{
-			constructionInvoker(chunkBufferElementPointers[i],sourceElementPointers[i]);
+			for (i = 0;i < cardinality;i++)
+			{
+				constructionInvoker(chunkBufferElementPointers[i],sourceElementPointers[i]);
+				constructionCardinality++;
+			}
 		}
+		catch (...)
+		{
+			for (i = 0;i < constructionCardinality;i++)
+			{
+				(chunkBufferElementPointers[i])->~SafeContextBase();
+			}
 
-		SafeMemoryManager::Classification.store(true);
+			throw;
+		}
 	};
 
 	void SafeContextBase::SafeMemoryManager::helpDestroyChunk(const vector<SafeContextBase*>& chunkBufferElementPointers,const size_t& cardinality)
 	{
-		lock_guard<recursive_mutex> classificationLock(ClassificationGuard);
+		SafeContextBase::SafeMemoryManager::ScopedClassification classifier(false);
 		size_t i = 0;
 
 		for (i = 0;i < cardinality;i++)
@@ -436,111 +478,100 @@ namespace Safe
 
 	void SafeContextBase::SafeMemoryManager::helpDisposeChunk(const vector<SafeContextBase*>& chunkBufferElementPointers,const size_t& cardinality)
 	{
-		lock_guard<recursive_mutex> classificationLock(ClassificationGuard);
-		SafeMemoryManager::Classification.store(false);
+		SafeContextBase::SafeMemoryManager::ScopedClassification classifier(false);
 		size_t i = 0;
 
 		for (i = 0;i < cardinality;i++)
 		{
 			(chunkBufferElementPointers[i])->~SafeContextBase();
 		}
-
-		SafeMemoryManager::Classification.store(true);
 	};
 
 	void SafeContextBase::SafeMemoryManager::reconstructSafely(SafeContextBase* const instancePointer,const DefaultConstructionInvoker& constructionInvoker)
 	{
-		lock_guard<recursive_mutex> classificationLock(ClassificationGuard);
-		SafeMemoryManager::Classification.store(false);
+		SafeContextBase::SafeMemoryManager::ScopedClassification classifier(false);
 		static_cast<SafeContextBase*>(instancePointer)->~SafeContextBase();
 		constructionInvoker(instancePointer);
-		SafeMemoryManager::Classification.store(true);
+	};
+
+	SafeContextBase::SafeMemoryManager& SafeContextBase::SafeMemoryManager::initializeStaticMemoryManager() noexcept
+	{
+		static SafeMemoryManager instance = SafeMemoryManager();
+
+		return instance;
 	};
 
 	void SafeContextBase::SafeMemoryManager::emplaceInstance(SafeContextBase* const instancePointer)
 	{
-		lock_guard<mutex> trackerLock(this->memoryTrackerSynchronizationGuard);
-		(this->trackedInstancePointerQueue).push_back(instancePointer);
-	};
-
-	void SafeContextBase::SafeMemoryManager::emplaceArray(SafeContextBase* const arrayPointer,const size_t& arraySize)
-	{
-		lock_guard<mutex> trackerLock(this->memoryTrackerSynchronizationGuard);
-		(this->trackedArrayPointerMetadataQueue).push_back(make_pair<SafeContextBase* const&,const size_t&>(arrayPointer,arraySize));
-	};
-
-	void SafeContextBase::SafeMemoryManager::emplaceChunk(SafeContextBase* const chunkPointer,const size_t& chunkSize)
-	{
-		lock_guard<mutex> trackerLock(this->memoryTrackerSynchronizationGuard);
-		(this->trackedChunkPointerMetadataQueue).push_back(make_pair<SafeContextBase* const&,const size_t&>(chunkPointer,chunkSize));
+		if (SafeContextBase::SafeMemoryManager::Multithreading == true)
+		{
+			lock_guard<recursive_mutex> trackerLock(this->memoryTrackerSynchronizationGuard);
+			(this->trackedInstancePointerQueue).push_back(instancePointer);
+		}
+		else
+		{
+			(this->trackedInstancePointerQueue).push_back(instancePointer);
+		}
 	};
 
 	void SafeContextBase::SafeMemoryManager::displaceInstance(SafeContextBase* const instancePointer) noexcept
 	{
-		lock_guard<mutex> trackerLock(this->memoryTrackerSynchronizationGuard);
-		lock_guard<mutex> recyclerLock(this->memoryRecyclerSynchronizationGuard);
 		size_t i = 0;
-		size_t numberOfTrackedInstances = (this->trackedInstancePointerQueue).size();
 
-		for (i = 0;i < numberOfTrackedInstances;i++)
+		if (SafeContextBase::SafeMemoryManager::Multithreading == true)
 		{
-			if ((this->trackedInstancePointerQueue)[i] == instancePointer)
+			lock_guard<recursive_mutex> trackerLock(this->memoryTrackerSynchronizationGuard);
+			lock_guard<mutex> recyclerLock(this->memoryRecyclerSynchronizationGuard);
+			size_t numberOfTrackedInstances = (this->trackedInstancePointerQueue).size();
+
+			for (i = 0;i < numberOfTrackedInstances;i++)
 			{
-				(this->trackedInstancePointerQueue).erase((this->trackedInstancePointerQueue).begin() + i);
-				break;
-			}
-		}
-
-		i = 0;
-
-		while (i < (this->recycledInstancePointers).size())
-		{
-			if ((this->recycledInstancePointers)[i] == instancePointer)
-			{
-				(this->recycledInstancePointers).erase((this->recycledInstancePointers).begin() + i);
-			}
-			else
-			{
-				i++;
-			}
-		}
-	};
-
-	void SafeContextBase::SafeMemoryManager::displaceArray(SafeContextBase* const arrayPointer) noexcept
-	{
-		lock_guard<mutex> trackerLock(this->memoryTrackerSynchronizationGuard);
-		size_t i = 0;
-		size_t numberOfTrackedArrays = (this->trackedArrayPointerMetadataQueue).size();
-
-		for (i = 0;i < numberOfTrackedArrays;i++)
-		{
-			if (((this->trackedArrayPointerMetadataQueue)[i]).first == arrayPointer)
-			{
-				(this->trackedArrayPointerMetadataQueue).erase((this->trackedArrayPointerMetadataQueue).begin() + i);
-				break;
-			}
-		}
-	};
-
-	void SafeContextBase::SafeMemoryManager::displaceChunk(SafeContextBase* const chunkPointer)
-	{
-		lock_guard<mutex> trackerLock(this->memoryTrackerSynchronizationGuard);
-		size_t i = 0;
-		size_t numberOfTrackedChunks = (this->trackedChunkPointerMetadataQueue).size();
-
-		for (i = 0;i < numberOfTrackedChunks;i++)
-		{
-			if (((this->trackedChunkPointerMetadataQueue)[i]).first == chunkPointer)
-			{
-				size_t j = 0;
-
-				for (j = 0;j < ((this->trackedChunkPointerMetadataQueue)[i]).second;j++)
+				if ((this->trackedInstancePointerQueue)[i] == instancePointer)
 				{
-					((((this->trackedChunkPointerMetadataQueue)[i]).first)[j]).~SafeContextBase();
+					(this->trackedInstancePointerQueue).erase((this->trackedInstancePointerQueue).begin() + i);
+					break;
 				}
+			}
 
-				(this->trackedChunkPointerMetadataQueue).erase((this->trackedChunkPointerMetadataQueue).begin() + i);
-				break;
+			i = 0;
+
+			while (i < (this->recycledInstancePointers).size())
+			{
+				if ((this->recycledInstancePointers)[i] == instancePointer)
+				{
+					(this->recycledInstancePointers).erase((this->recycledInstancePointers).begin() + i);
+				}
+				else
+				{
+					i++;
+				}
+			}
+		}
+		else
+		{
+			size_t numberOfTrackedInstances = (this->trackedInstancePointerQueue).size();
+
+			for (i = 0;i < numberOfTrackedInstances;i++)
+			{
+				if ((this->trackedInstancePointerQueue)[i] == instancePointer)
+				{
+					(this->trackedInstancePointerQueue).erase((this->trackedInstancePointerQueue).begin() + i);
+					break;
+				}
+			}
+
+			i = 0;
+
+			while (i < (this->recycledInstancePointers).size())
+			{
+				if ((this->recycledInstancePointers)[i] == instancePointer)
+				{
+					(this->recycledInstancePointers).erase((this->recycledInstancePointers).begin() + i);
+				}
+				else
+				{
+					i++;
+				}
 			}
 		}
 	};
@@ -552,41 +583,102 @@ namespace Safe
 
 	void SafeContextBase::SafeMemoryManager::recycle(SafeContextBase* const instancePointer)
 	{
-		lock_guard<mutex> recyclerLock(this->memoryRecyclerSynchronizationGuard);
 		bool existence = false;
 		size_t i = 0;
-		size_t numberOfTrackedInstances = (this->trackedInstancePointerQueue).size();
+		size_t j = 0;
 
-		for (i = 0;i < numberOfTrackedInstances;i++)
+		if (SafeContextBase::SafeMemoryManager::Multithreading == true)
 		{
-			if (instancePointer == (this->trackedInstancePointerQueue)[i])
+			lock_guard<recursive_mutex> trackerLock(this->memoryTrackerSynchronizationGuard);
+			lock_guard<mutex> recyclerLock(this->memoryRecyclerSynchronizationGuard);
+			size_t numberOfTrackedInstances = (this->trackedInstancePointerQueue).size();
+
+			for (i = 0;i < numberOfTrackedInstances;i++)
 			{
-				existence = true;
-				(this->recycledInstancePointers).push_back(instancePointer);
-				break;
+				if (instancePointer == (this->trackedInstancePointerQueue)[i])
+				{
+					existence = true;
+
+					if (find((this->recycledInstancePointers).begin(),(this->recycledInstancePointers).end(),instancePointer) == (this->recycledInstancePointers).end())
+					{
+						(this->recycledInstancePointers).push_back(instancePointer);
+					}
+					else
+					{
+						throw SafeContextException("The argument `instancePointer` is a pointer to an already recycled instance: `" + to_string(reinterpret_cast<uintptr_t>(instancePointer)) + "`!");
+					}
+
+					break;
+				}
+			}
+
+			if (existence == false)
+			{
+				throw SafeContextException("The argument `instancePointer` is a pointer that doesn't hold a valid memory address of an managed instance: `" + to_string(reinterpret_cast<uintptr_t>(instancePointer)) + "`! It could be a memory address of an element of the memory chunk type `SafeMemoryChunk`.");
 			}
 		}
-
-		if (existence == false)
+		else
 		{
-			throw SafeContextException("The argument `instancePointer` is a pointer that doesn't hold a valid memory address of an managed instance: `" + to_string(reinterpret_cast<uintptr_t>(instancePointer)) + "`! It could be a memory address of an element of the memory chunk type `SafeMemoryChunk`.");
+			size_t numberOfTrackedInstances = (this->trackedInstancePointerQueue).size();
+
+			for (i = 0;i < numberOfTrackedInstances;i++)
+			{
+				if (instancePointer == (this->trackedInstancePointerQueue)[i])
+				{
+					existence = true;
+
+					if (find((this->recycledInstancePointers).begin(),(this->recycledInstancePointers).end(),instancePointer) == (this->recycledInstancePointers).end())
+					{
+						(this->recycledInstancePointers).push_back(instancePointer);
+					}
+					else
+					{
+						throw SafeContextException("The argument `instancePointer` is a pointer to an already recycled instance: `" + to_string(reinterpret_cast<uintptr_t>(instancePointer)) + "`!");
+					}
+
+					break;
+				}
+			}
+
+			if (existence == false)
+			{
+				throw SafeContextException("The argument `instancePointer` is a pointer that doesn't hold a valid memory address of an managed instance: `" + to_string(reinterpret_cast<uintptr_t>(instancePointer)) + "`! It could be a memory address of an element of the memory chunk type `SafeMemoryChunk`.");
+			}
 		}
 	};
 
-	SafeContextBase* SafeContextBase::SafeMemoryManager::upcycle(const type_info& typeInformation)
+	SafeContextBase* SafeContextBase::SafeMemoryManager::upcycle(const type_info& typeInformation) noexcept
 	{
-		lock_guard<mutex> recyclerLock(this->memoryRecyclerSynchronizationGuard);
 		size_t i = 0;
-		size_t numberOfRecycledPointers = (this->recycledInstancePointers).size();
 		SafeContextBase* result = nullptr;
 
-		for (i = 0;i < numberOfRecycledPointers;i++)
+		if (SafeContextBase::SafeMemoryManager::Multithreading == true)
 		{
-			if (((this->recycledInstancePointers)[i])->getTypeInfo() == typeInformation)
+			lock_guard<mutex> recyclerLock(this->memoryRecyclerSynchronizationGuard);
+			size_t numberOfRecycledPointers = (this->recycledInstancePointers).size();
+
+			for (i = 0;i < numberOfRecycledPointers;i++)
 			{
-				result = (this->recycledInstancePointers)[i];
-				(this->recycledInstancePointers).erase((this->recycledInstancePointers).begin() + i);
-				break;
+				if (((this->recycledInstancePointers)[i])->getTypeInfo() == typeInformation)
+				{
+					result = (this->recycledInstancePointers)[i];
+					(this->recycledInstancePointers).erase((this->recycledInstancePointers).begin() + i);
+					break;
+				}
+			}
+		}
+		else
+		{
+			size_t numberOfRecycledPointers = (this->recycledInstancePointers).size();
+
+			for (i = 0;i < numberOfRecycledPointers;i++)
+			{
+				if (((this->recycledInstancePointers)[i])->getTypeInfo() == typeInformation)
+				{
+					result = (this->recycledInstancePointers)[i];
+					(this->recycledInstancePointers).erase((this->recycledInstancePointers).begin() + i);
+					break;
+				}
 			}
 		}
 
@@ -596,99 +688,63 @@ namespace Safe
 	void SafeContextBase::SafeMemoryManager::forceShutdown(const SafeContextBase* pointerInDangerZone)
 	{
 		size_t i = 0;
-		lock_guard<mutex> shutdownLock(ShutdownGuard);
-
-		while (true)
+		
+		if (SafeContextBase::SafeMemoryManager::Multithreading == true)
 		{
-			SafeContextBase* currentInstancePointer = nullptr;
+			lock_guard<mutex> shutdownLock(ShutdownGuard);
 
-			if (currentInstancePointer == nullptr)
+			while (true)
 			{
-				lock_guard<mutex> trackerLock(this->memoryTrackerSynchronizationGuard);
+				SafeContextBase* currentInstancePointer = nullptr;
 
-				if ((this->trackedInstancePointerQueue).empty() == true)
+				if (currentInstancePointer == nullptr)
 				{
-					break;
-				}
-				else
-				{
-					currentInstancePointer = (this->trackedInstancePointerQueue).front();
+					lock_guard<recursive_mutex> trackerLock(this->memoryTrackerSynchronizationGuard);
 
-					if (currentInstancePointer != pointerInDangerZone)
+					if ((this->trackedInstancePointerQueue).empty() == true)
 					{
-						(this->trackedInstancePointerQueue).pop_front();
+						break;
+					}
+					else
+					{
+						currentInstancePointer = (this->trackedInstancePointerQueue).front();
+
+						if (currentInstancePointer != pointerInDangerZone)
+						{
+							(this->trackedInstancePointerQueue).pop_front();
+						}
 					}
 				}
+
+				::delete currentInstancePointer;
 			}
-
-			delete currentInstancePointer;
 		}
-
-		SafeMemoryManager::setClassification(false);
-
-		while (true)
+		else
 		{
-			pair<SafeContextBase*,size_t> currentArrayPointerMetadata = make_pair<SafeContextBase*&&,size_t&&>(nullptr,0);
-
-			if (currentArrayPointerMetadata.first == nullptr)
+			while (true)
 			{
-				lock_guard<mutex> trackerLock(this->memoryTrackerSynchronizationGuard);
+				SafeContextBase* currentInstancePointer = nullptr;
 
-				if ((this->trackedArrayPointerMetadataQueue).empty() == true)
+				if (currentInstancePointer == nullptr)
 				{
-					break;
-				}
-				else
-				{
-					currentArrayPointerMetadata = (this->trackedArrayPointerMetadataQueue).front();
-
-					if (currentArrayPointerMetadata.first != pointerInDangerZone)
+					if ((this->trackedInstancePointerQueue).empty() == true)
 					{
-						(this->trackedArrayPointerMetadataQueue).pop_front();
+						break;
+					}
+					else
+					{
+						currentInstancePointer = (this->trackedInstancePointerQueue).front();
+
+						if (currentInstancePointer != pointerInDangerZone)
+						{
+							(this->trackedInstancePointerQueue).pop_front();
+						}
 					}
 				}
-			}
 
-			for (i = 0;i < currentArrayPointerMetadata.second;i++)
-			{
-				((currentArrayPointerMetadata.first)[i]).~SafeContextBase();
+				::delete currentInstancePointer;
 			}
-
-			delete[] currentArrayPointerMetadata.first;
 		}
-
-		while (true)
-		{
-			pair<SafeContextBase*,size_t> currentChunkPointerMetadata = make_pair<SafeContextBase*&&,size_t&&>(nullptr,0);
-
-			if (currentChunkPointerMetadata.first == nullptr)
-			{
-				lock_guard<mutex> trackerLock(this->memoryTrackerSynchronizationGuard);
-
-				if (this->trackedChunkPointerMetadataQueue.empty() == true)
-				{
-					break;
-				}
-				else
-				{
-					currentChunkPointerMetadata = (this->trackedChunkPointerMetadataQueue).front();
-					
-					if (currentChunkPointerMetadata.first != pointerInDangerZone)
-					{
-						(this->trackedChunkPointerMetadataQueue).pop_front();
-					}
-				}
-			}
-
-			for (i = 0;i < currentChunkPointerMetadata.second;i++)
-			{
-				((currentChunkPointerMetadata.first)[i]).~SafeContextBase();
-			}
-
-			delete currentChunkPointerMetadata.first;
-		}
-
-		SafeMemoryManager::setClassification(true);
 	};
 
 	void* SafeContextBase::operator new(size_t memorySize)
@@ -698,17 +754,7 @@ namespace Safe
 
 	void* SafeContextBase::operator new[](size_t memoryArraySize)
 	{
-		SafeContextBase* memoryArrayPointer = static_cast<SafeContextBase*>(::operator new[](sizeof(SafeContextBase) * memoryArraySize));
-		size_t i = 0;
-
-		for (i = 0;i < memoryArraySize;i++)
-		{
-			::new (&(memoryArrayPointer[i])) SafeContextBase(false);
-		}
-
-		SafeContextBase::SafeMemoryManager::StaticMemoryManager.emplaceArray(memoryArrayPointer,memoryArraySize);
-
-		return memoryArrayPointer;
+		return static_cast<SafeContextBase*>(::operator new[](memoryArraySize));
 	};
 
 	void SafeContextBase::operator delete(void* const memoryPointer) noexcept
@@ -743,51 +789,14 @@ namespace Safe
 
 	SafeContextBase& SafeContextBase::constructInstanceOnMemoryHeap()
 	{
-		return *(new SafeContextBase());
-	};
-
-	SafeContextBase* SafeContextBase::allocateArrayOnMemoryHeap(const size_t& arraySize)
-	{
-		return new SafeContextBase[arraySize];
-	};
-
-	SafeContextBase* SafeContextBase::allocateChunkOnMemoryHeap(const size_t& chunkCardinality)
-	{
-		SafeContextBase* memoryChunkPointer = static_cast<SafeContextBase*>(::operator new(sizeof(SafeContextBase) * chunkCardinality));
-		size_t i = 0;
-
-		for (i = 0;i < chunkCardinality;i++)
-		{
-			::new (&(memoryChunkPointer[i])) SafeContextBase(false);
-		}
-
-		SafeMemoryManager::StaticMemoryManager.emplaceChunk(memoryChunkPointer,chunkCardinality);
-
-		return memoryChunkPointer;
+		return *(::new SafeContextBase());
 	};
 
 	void SafeContextBase::destructInstanceOnMemoryHeap(SafeContextBase* const instancePointer) noexcept
 	{
-		SafeMemoryManager::setClassification(false);
-		SafeMemoryManager::StaticMemoryManager.displaceInstance(instancePointer);
+		SafeContextBase::SafeMemoryManager::ScopedClassification classifier(false);
+		SafeMemoryManager::StaticMemoryManagerReference.displaceInstance(instancePointer);
 		::delete instancePointer;
-		SafeMemoryManager::setClassification(true);
-	};
-
-	void SafeContextBase::deallocateArrayOnMemoryHeap(SafeContextBase* const arrayPointer) noexcept
-	{
-		SafeMemoryManager::setClassification(false);
-		SafeMemoryManager::StaticMemoryManager.displaceArray(arrayPointer);
-		::delete[] arrayPointer;
-		SafeMemoryManager::setClassification(true);
-	};
-
-	void SafeContextBase::deallocateChunkOnMemoryHeap(SafeContextBase* const chunkPointer) noexcept
-	{
-		SafeMemoryManager::setClassification(false);
-		SafeMemoryManager::StaticMemoryManager.displaceChunk(chunkPointer);
-		::delete chunkPointer;
-		SafeMemoryManager::setClassification(true);
 	};
 
 	void SafeContextBase::reconstructSafely(SafeContextBase* const instancePointer,const DefaultConstructionInvoker& constructionInvoker)
@@ -815,9 +824,9 @@ namespace Safe
 		SafeMemoryManager::helpDisposeChunk(chunkBufferElementPointers,cardinality);
 	};
 
-	SafeContextBase* SafeContextBase::upcycle(const type_info& typeInformation)
+	SafeContextBase* SafeContextBase::upcycle(const type_info& typeInformation) noexcept
 	{
-		return SafeMemoryManager::StaticMemoryManager.upcycle(typeInformation);
+		return SafeMemoryManager::StaticMemoryManagerReference.upcycle(typeInformation);
 	};
 
 	void SafeContextBase::finalize(SafeContextBase*& pointer) noexcept
@@ -825,14 +834,19 @@ namespace Safe
 		pointer = nullptr;
 	};
 
+	void SafeContextBase::enableMultithreadedMode() noexcept
+	{
+		SafeContextBase::SafeMemoryManager::Multithreading = true;
+	};
+
 	void SafeContextBase::recycle(SafeContextBase& instanceReference)
 	{
-		SafeMemoryManager::StaticMemoryManager.recycle(instanceReference);
+		SafeMemoryManager::StaticMemoryManagerReference.recycle(instanceReference);
 	};
 
 	void SafeContextBase::recycle(SafeContextBase* const instancePointer)
 	{
-		SafeMemoryManager::StaticMemoryManager.recycle(instancePointer);
+		SafeMemoryManager::StaticMemoryManagerReference.recycle(instancePointer);
 	};
 
 	size_t SafeContextBase::getMemorySize() const noexcept

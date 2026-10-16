@@ -96,19 +96,31 @@ namespace Safe
 		{
 			this->cardinality = 10;
 			std::vector<SafeContextBase*> chunkBufferElementPointers = std::vector<SafeContextBase*>();
+			chunkBufferElementPointers.reserve(this->cardinality);
 			GenericTypeOfSafeContextDerivative* chunkPointer = static_cast<GenericTypeOfSafeContextDerivative*>(::operator new(sizeof(GenericTypeOfSafeContextDerivative) * this->cardinality));
 			std::size_t i = 0;
-
-			for (i = 0;i < this->cardinality;i++)
+			
+			try
 			{
-				chunkBufferElementPointers.push_back(static_cast<SafeContextBase*>(chunkPointer + i));
+				for (i = 0;i < this->cardinality;i++)
+				{
+					chunkBufferElementPointers.push_back(static_cast<SafeContextBase*>(chunkPointer + i));
+				}
+
+				this->composedBufferPointer = chunkPointer;
+
+				SafeContextBase::helpInitializeChunk(chunkBufferElementPointers,this->cardinality,[](SafeContextBase* const instancePointer) -> void
+				{
+					::new (instancePointer) GenericTypeOfSafeContextDerivative();
+				});
 			}
-
-			this->composedBufferPointer = chunkPointer;
-			SafeContextBase::helpInitializeChunk(chunkBufferElementPointers,this->cardinality,[](SafeContextBase* const instancePointer) -> void
+			catch (...)
 			{
-				::new (instancePointer) GenericTypeOfSafeContextDerivative();
-			});
+				::operator delete(this->composedBufferPointer);
+				this->composedBufferPointer = 0;
+				this->cardinality = 0;
+				throw;
+			}
 		};
 
 		/// <summary>
@@ -119,19 +131,31 @@ namespace Safe
 		{
 			this->cardinality = cardinality;
 			std::vector<SafeContextBase*> chunkBufferElementPointers = std::vector<SafeContextBase*>();
+			chunkBufferElementPointers.reserve(this->cardinality);
 			GenericTypeOfSafeContextDerivative* chunkPointer = static_cast<GenericTypeOfSafeContextDerivative*>(::operator new(sizeof(GenericTypeOfSafeContextDerivative) * this->cardinality));
 			std::size_t i = 0;
 
-			for (i = 0;i < cardinality;i++)
+			try
 			{
-				chunkBufferElementPointers.push_back(static_cast<SafeContextBase*>(chunkPointer + i));
-			}
+				for (i = 0;i < cardinality;i++)
+				{
+					chunkBufferElementPointers.push_back(static_cast<SafeContextBase*>(chunkPointer + i));
+				}
 
-			this->composedBufferPointer = chunkPointer;
-			SafeContextBase::helpInitializeChunk(chunkBufferElementPointers,this->cardinality,[](SafeContextBase* const instancePointer) -> void
+				this->composedBufferPointer = chunkPointer;
+
+				SafeContextBase::helpInitializeChunk(chunkBufferElementPointers,this->cardinality,[](SafeContextBase* const instancePointer) -> void
+				{
+					::new (instancePointer) GenericTypeOfSafeContextDerivative();
+				});
+			}
+			catch (...)
 			{
-				::new (instancePointer) GenericTypeOfSafeContextDerivative();
-			});
+				::operator delete(this->composedBufferPointer);
+				this->composedBufferPointer = nullptr;
+				this->cardinality = 0;
+				throw;
+			}
 		};
 
 		/// <summary>
@@ -150,36 +174,64 @@ namespace Safe
 			}
 
 			std::vector<SafeContextBase*> chunkBufferElementPointers = std::vector<SafeContextBase*>();
+			chunkBufferElementPointers.reserve(this->cardinality);
 			GenericTypeOfSafeContextDerivative* chunkPointer = static_cast<GenericTypeOfSafeContextDerivative*>(::operator new(sizeof(GenericTypeOfSafeContextDerivative) * this->cardinality));
 			std::size_t i = 0;
 
-			for (i = 0;i < this->cardinality;i++)
-			{
-				chunkBufferElementPointers.push_back(static_cast<SafeContextBase*>(chunkPointer + i));
-			}
-
-			this->composedBufferPointer = chunkPointer;
-			
 			if (other.composedBufferPointer == nullptr)
 			{
-				SafeContextBase::helpInitializeChunk(chunkBufferElementPointers,this->cardinality,[](SafeContextBase* const instancePointer) -> void
+				try
 				{
-					::new (instancePointer) GenericTypeOfSafeContextDerivative();
-				});
+					for (i = 0;i < this->cardinality;i++)
+					{
+						chunkBufferElementPointers.push_back(static_cast<SafeContextBase*>(chunkPointer + i));
+					}
+
+					this->composedBufferPointer = chunkPointer;
+
+					SafeContextBase::helpInitializeChunk(chunkBufferElementPointers,this->cardinality,[](SafeContextBase* const instancePointer) -> void
+					{
+						::new (instancePointer) GenericTypeOfSafeContextDerivative();
+					});
+				}
+				catch (...)
+				{
+					::operator delete(this->composedBufferPointer);
+					this->composedBufferPointer = nullptr;
+					this->cardinality = 0;
+					throw;
+				}
 			}
 			else
 			{
-				std::vector<SafeContextBase*> otherElementPointers = std::vector<SafeContextBase*>();
-
-				for (i = 0;i < other.cardinality;i++)
+				try
 				{
-					otherElementPointers.push_back(static_cast<SafeContextBase*>((other.composedBufferPointer)[i]));
+					for (i = 0;i < this->cardinality;i++)
+					{
+						chunkBufferElementPointers.push_back(static_cast<SafeContextBase*>(chunkPointer + i));
+					}
+
+					this->composedBufferPointer = chunkPointer;
+
+					std::vector<SafeContextBase*> otherElementPointers = std::vector<SafeContextBase*>();
+
+					for (i = 0;i < other.cardinality;i++)
+					{
+						otherElementPointers.push_back(static_cast<SafeContextBase*>((other.composedBufferPointer)[i]));
+					}
+
+					SafeContextBase::helpDuplicateChunk(chunkBufferElementPointers,otherElementPointers,this->cardinality,[](SafeContextBase* const instancePointer,const SafeContextBase* const otherInstancePointer) -> void
+					{
+						::new (instancePointer) GenericTypeOfSafeContextDerivative(*(static_cast<const GenericTypeOfSafeContextDerivative* const>(otherInstancePointer)));
+					});
 				}
-
-				SafeContextBase::helpDuplicateChunk(chunkBufferElementPointers,otherElementPointers,this->cardinality,[](SafeContextBase* const instancePointer,const SafeContextBase* const otherInstancePointer) -> void
+				catch (...)
 				{
-					::new (instancePointer) GenericTypeOfSafeContextDerivative(*(static_cast<const GenericTypeOfSafeContextDerivative* const>(otherInstancePointer)));
-				});
+					::operator delete(this->composedBufferPointer);
+					this->composedBufferPointer = nullptr;
+					this->cardinality = 0;
+					throw;
+				}
 			}
 		};
 
@@ -342,17 +394,20 @@ namespace Safe
 		/// <returns>void</returns>
 		inline void dispose()
 		{
-			std::size_t i = 0;
-			std::vector<SafeContextBase*> chunkBufferElementPointers = std::vector<SafeContextBase*>();
-
-			for (i = 0;i < this->cardinality;i++)
+			if (this->composedBufferPointer != nullptr)
 			{
-				chunkBufferElementPointers.push_back(&((this->composedBufferPointer)[i]));
-			}
+				std::size_t i = 0;
+				std::vector<SafeContextBase*> chunkBufferElementPointers = std::vector<SafeContextBase*>();
 
-			SafeContextBase::helpDisposeChunk(chunkBufferElementPointers,this->cardinality);
-			::operator delete(this->composedBufferPointer);
-			this->composedBufferPointer = nullptr;
+				for (i = 0;i < this->cardinality;i++)
+				{
+					chunkBufferElementPointers.push_back(&((this->composedBufferPointer)[i]));
+				}
+
+				SafeContextBase::helpDisposeChunk(chunkBufferElementPointers,this->cardinality);
+				::operator delete(this->composedBufferPointer);
+				this->composedBufferPointer = nullptr;
+			}
 		};
 	};
 
@@ -361,4 +416,10 @@ namespace Safe
 	/// </summary>
 	/// <typeparam name="GenericTypeOfSafeContextDerivative"></typeparam>
 	template<typename GenericTypeOfSafeContextDerivative> using SafeMemoryChunk = SafeContextBase::SafeMemoryChunk<GenericTypeOfSafeContextDerivative>;
+
+	/// <summary>
+	///		C++ type name alias: `SafeArray`.
+	/// </summary>
+	/// <typeparam name="GenericTypeOfSafeContextDerivative"></typeparam>
+	template<typename GenericTypeOfSafeContextDerivative> using SafeArray = SafeContextBase::SafeMemoryChunk<GenericTypeOfSafeContextDerivative>;
 };

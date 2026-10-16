@@ -47,33 +47,36 @@
 1771166506 source:f:\programming projects\c++ projects\visual studio projects\safe\safe\safetrade.cpp
 	"SafeTrade.h"
 
-1782381938 source:/home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeContextBase.cpp
+1784711335 source:/home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeContextBase.cpp
 	<atomic>
+	<cstdarg>
 	<deque>
 	<mutex>
+	<string>
 	<typeinfo>
 	<utility>
 	<vector>
 	"SafeContextBase.h"
 	"SafeContextException.h"
 
-1781237393 /home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeContextBase.h
+1784711335 /home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeContextBase.h
+	<concepts>
 	<type_traits>
 	<typeinfo>
 	<vector>
 	"SafeNamespace.h"
 	"SafeTrade.h"
 
-1781237393 /home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeContextException.h
+1783414879 /home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeContextException.h
 	<exception>
 	<string>
 	"SafeContextBase.h"
 	"SafeNamespace.h"
 	"SafeTrade.h"
 
-1782112283 /home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeNamespace.h
+1783414879 /home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeNamespace.h
 
-1782112283 /home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeTrade.h
+1783414879 /home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeTrade.h
 	<exception>
 	<functional>
 	<memory>
@@ -81,16 +84,16 @@
 	<vector>
 	"SafeNamespace.h"
 
-1781237393 source:/home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeContextException.cpp
+1783414879 source:/home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeContextException.cpp
 	<string>
 	<utility>
 	"SafeContextException.h"
 	"SafeContextBase.h"
 
-1781237393 source:/home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeTrade.cpp
+1783414879 source:/home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeTrade.cpp
 	"SafeTrade.h"
 
-1782289344 source:/home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/Safe.cpp
+1784711335 source:/home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/Safe.cpp
 	<atomic>
 	<chrono>
 	<cstdlib>
@@ -102,12 +105,12 @@
 	<utility>
 	<vector>
 	"SafeContextBase.h"
+	"SafeContextException.h"
 	"SafeEvent.h"
 	"SafeMemoryChunk.h"
 	"SafeNamespace.h"
 	"SafeString.h"
 	"SafeTrade.h"
-	<crtdbg.h>
 	<crtdbg.h>
 	<crtdbg.h>
 	<crtdbg.h>
@@ -180,7 +183,7 @@
 1771910598 source:/home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe--Cpp/Safe/SafeTrade.cpp
 	"SafeTrade.h"
 
-1782381938 /home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeEvent.h
+1783414879 /home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeEvent.h
 	<functional>
 	<type_traits>
 	"SafeContextBase.h"
@@ -188,33 +191,41 @@
 	"SafeNamespace.h"
 	"SafeTrade.h"
 
-1782445331 /home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeFunction.h
+1783414879 /home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeFunction.h
 	<functional>
 	"SafeContextBase.h"
 	"SafeContextException.h"
 
-1782295541 /home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeMemoryChunk.h
+1784711335 /home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeMemoryChunk.h
+	<concepts>
 	<string>
 	<type_traits>
-	<typeinfo>
 	<vector>
 	"SafeContextBase.h"
 	"SafeContextException.h"
 
-1782381938 source:/home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeEvent.cpp
+1783414879 source:/home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeEvent.cpp
 	<utility>
 	"SafeContextBase.h"
 	"SafeEvent.h"
 
-1781237393 source:/home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeFunction.cpp
+1783414879 source:/home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeFunction.cpp
 	"SafeFunction.h"
 
-1781237393 source:/home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeMemoryChunk.cpp
+1783414879 source:/home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeMemoryChunk.cpp
 	<type_traits>
 	"SafeMemoryChunk.h"
 
-1782295875 /home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeString.h
+1784711335 /home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeString.h
 	<string>
 	<string_view>
 	"SafeContextBase.h"
+
+1784711335 source:/home/hackerrhino1010/Documents/Programming Projects/C++ Projects/CodeBlocks Projects/Safe/Safe/SafeString.cpp
+	<cstring>
+	<string>
+	<string_view>
+	"SafeContextBase.h"
+	"SafeContextException.h"
+	"SafeString.h"
 

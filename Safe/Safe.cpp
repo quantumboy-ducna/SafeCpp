@@ -247,6 +247,7 @@ int main()
 	atomic<int> numberOfRecycles{ 0 };
 	atomic<int> numberOfRepurposes{ 0 };
 	vector<thread> threads = vector<thread>();
+	Safe::SafeContextBase::enableMultithreadedMode(); //Crucial for multi-threading scheme.
 
 	for (j = 0;j < threadCount;++j)
 	{
@@ -550,6 +551,105 @@ int main()
 	Safe::SafeStringBuilder<char> stringBuilder = Safe::SafeStringBuilder<char>(string);
 	stringBuilder.append("abcdef");
 	cout << stringBuilder.getLength() << endl;
+
+	return 0;
+};*/
+
+/*class UnsafeObject
+{
+
+};
+
+class SafeObject final : public Safe::SafeContextBase
+{
+
+};*/
+
+/*#ifdef WINDOWS_VISUAL_CPP
+#define _CRTDBG_MAP_ALLOC
+#include <crtdbg.h>
+#endif
+int main()
+{
+#ifdef WINDOWS_VISUAL_CPP
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	_CrtSetReportMode(_CRT_WARN,_CRTDBG_MODE_DEBUG);
+#endif
+	size_t i = 0;
+	size_t j = 0;
+	size_t beginTick = 0;
+	size_t endTick = 0;
+	size_t numberOfTurns = 10000000;
+	size_t elapsedTime = 0;
+	size_t totalTimeUnderSafeContext = 0;
+	size_t totalTimeUnderUnsafeContext = 0;
+	SafeObject* safePointer = ::new SafeObject();
+	Safe::SafeContextBase::recycle(static_cast<Safe::SafeContextBase*>(safePointer));
+
+	while (j < numberOfTurns)
+	{
+		beginTick = chrono::high_resolution_clock::now().time_since_epoch().count();
+		SafeObject& safeReference = Safe::SafeContextBase::repurpose<SafeObject>();
+		Safe::SafeContextBase::recycle(static_cast<Safe::SafeContextBase&>(safeReference));
+		endTick = chrono::high_resolution_clock::now().time_since_epoch().count();
+		elapsedTime = endTick - beginTick;
+		totalTimeUnderSafeContext += elapsedTime;
+		beginTick = chrono::high_resolution_clock::now().time_since_epoch().count();
+		volatile UnsafeObject* unsafePointer = new UnsafeObject();
+		delete unsafePointer;
+		endTick = chrono::high_resolution_clock::now().time_since_epoch().count();
+		elapsedTime = endTick - beginTick;
+		totalTimeUnderUnsafeContext += elapsedTime;
+		j++;
+	}
+
+	cout << "Average time for unsafe allocation: " << ((1.0 * totalTimeUnderUnsafeContext) / 1000000000) << " second(s)." << endl;
+	cout << "Average time for safe allocation: " << ((1.0 * totalTimeUnderSafeContext) / 1000000000) << " second(s)." << endl;
+
+	return 0;
+};*/
+
+/*#ifdef WINDOWS_VISUAL_CPP
+#define _CRTDBG_MAP_ALLOC
+#include <crtdbg.h>
+#endif
+int main()
+{
+#ifdef WINDOWS_VISUAL_CPP
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	_CrtSetReportMode(_CRT_WARN,_CRTDBG_MODE_DEBUG);
+#endif
+	size_t i = 0;
+	size_t j = 0;
+	size_t beginTick = 0;
+	size_t endTick = 0;
+	size_t numberOfTurns = 100000;
+	size_t elapsedTime = 0;
+	size_t totalTimeUnderSafeContext = 0;
+	size_t totalTimeUnderUnsafeContext = 0;
+	Safe::SafeVector<SafeObject>* safeVectorPointer = ::new Safe::SafeVector<SafeObject>();
+	Safe::SafeContextBase::recycle(static_cast<Safe::SafeContextBase*>(safeVectorPointer));
+	UnsafeObject unsafeObject = UnsafeObject();
+
+	while (j < numberOfTurns)
+	{
+		beginTick = chrono::high_resolution_clock::now().time_since_epoch().count();
+		Safe::SafeVector<SafeObject>& safeVectorReference = Safe::SafeContextBase::repurpose<Safe::SafeVector<SafeObject>>();
+		Safe::SafeContextBase::recycle(static_cast<Safe::SafeContextBase&>(safeVectorReference));
+		endTick = chrono::high_resolution_clock::now().time_since_epoch().count();
+		elapsedTime = endTick - beginTick;
+		totalTimeUnderSafeContext += elapsedTime;
+		beginTick = chrono::high_resolution_clock::now().time_since_epoch().count();
+		volatile vector<UnsafeObject>* unsafeVectorPointer = new vector<UnsafeObject>(10,unsafeObject);
+		delete unsafeVectorPointer;
+		endTick = chrono::high_resolution_clock::now().time_since_epoch().count();
+		elapsedTime = endTick - beginTick;
+		totalTimeUnderUnsafeContext += elapsedTime;
+		j++;
+	}
+
+	cout << "Average time for unsafe allocation: " << ((1.0 * totalTimeUnderUnsafeContext) / 1000000000) << " second(s)." << endl;
+	cout << "Average time for safe allocation: " << ((1.0 * totalTimeUnderSafeContext) / 1000000000) << " second(s)." << endl;
 
 	return 0;
 };*/

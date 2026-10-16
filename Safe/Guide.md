@@ -229,11 +229,13 @@ int main()
 
 ### Notice
 
+- Although the project is referred as "runtime library", it can catch several memory errors at compile-time using its own special mechanisms and behaviors.
 - There are several limitations of `Safe` that originate from language constraints of C++. These limitations are considered "unsafe" in a similar sense to unsafe contexts in languages like C# or Rust.
 - The first one is, if a type that inherits from `SafeContextBase` and also manages resource types that don't inherit `SafeContextBase`, then those resources are deemed "unmanaged" and must be managed manually (that is, in the type's destructor), just like in C#'s destructors and its `IDisposable` interface.
 - Pointer arithmetic is considered unsafe.
+- Trying to use multi-threaded schemes without first enabling multi-threaded mode by `enableMultithreadedMode` is an undefined behavior.
 - If a polymorphic instance of `SafeContextBase` is allocated on memory stack, unlike the default allocation on memory heap, it shouldn't be used with reference(s) and pointer(s) as the reference(s) and the pointer(s) can potentially exist longer than the instance, and this leads to undefined behaviors. Pointer(s) and especially reference(s) in C++ behave as alias and it doesn't have any mechanism to stop them from referencing deallocated instances on memory stack. Always use reference(s) and pointer(s) with instance(s) allocated on heap-based memory, and use instance(s) allocated on stack-based memory as value type(s).
-- Constructors for types derived from `SafeContextBase` must be invoked using the global `new` (i.e. `::new`), not placement `new`. Manual arena allocations with placement new will likely cause crashes because the library manages and frees underlying buffers differently. This is unsafe and leads to undefined behaviors.
+- Constructors for types derived from `SafeContextBase` must be invoked using the global `new` (i.e. `::new`), not placement `new`. Manual arena allocation(s) with placement new will lead to undefined behavior(s) and apparently crash because the library manages and frees underlying buffers differently.
 
 ```c++
 Example* chunkPointer = static_cast<Example*>(::operator new(sizeof(Example) * cardinality));
@@ -261,7 +263,7 @@ void* pointer = reinterpret_cast<void*>(pointer);
 
 ### Thread-safety
 
-The library is implemented to be thread-safe.
+The library is implemented to be thread-safe if enabling multi-threaded mode.
 
 
 ### Contribution
