@@ -1,11 +1,11 @@
 <Solution>
-  <Configurations>
-    <BuildType Name="Debug - Dynamic Library" />
-    <BuildType Name="Debug - Static Library" />
-    <BuildType Name="Release - Dynamic Library" />
-    <BuildType Name="Release - Static Library" />
-    <Platform Name="ARM64" />
-    <Platform Name="x64" />
-  </Configurations>
-  <Project Path="Safe/Safe.vcxproj" Id="3cdfbf33-058b-4742-8b90-f92fd282765a" />
+	<Configurations>
+		<BuildType Name="Debug - Dynamic Library" />
+		<BuildType Name="Debug - Static Library" />
+		<BuildType Name="Release - Dynamic Library" />
+		<BuildType Name="Release - Static Library" />
+		<Platform Name="ARM64" />
+		<Platform Name="x64" />
+	</Configurations>
+	<Project Path="Safe/Safe.vcxproj" Id="3cdfbf33-058b-4742-8b90-f92fd282765a" />
 </Solution>

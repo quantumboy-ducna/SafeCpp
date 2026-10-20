@@ -1,85 +1,85 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="SafeContextBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Safe.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SafeContextException.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SafeNamespace.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SafeTrade.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SafeEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SafeMemoryChunk.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SafeFunction.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SafeString.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Safe.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SafeContextBase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SafeContextException.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SafeTrade.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SafeEvent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SafeMemoryChunk.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SafeFunction.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SafeString.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Reference.md">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Guide.md">
-      <Filter>Resource Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Safe.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
-  </ItemGroup>
+	<ItemGroup>
+		<Filter Include="Source Files">
+			<UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+			<Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+		</Filter>
+		<Filter Include="Header Files">
+			<UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+			<Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+		</Filter>
+		<Filter Include="Resource Files">
+			<UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+			<Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="SafeContextBase.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Safe.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="SafeContextException.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="SafeNamespace.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="SafeTrade.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="SafeEvent.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="SafeMemoryChunk.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="SafeFunction.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="SafeString.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="Safe.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="SafeContextBase.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="SafeContextException.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="SafeTrade.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="SafeEvent.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="SafeMemoryChunk.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="SafeFunction.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="SafeString.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="Reference.md">
+			<Filter>Resource Files</Filter>
+		</None>
+		<None Include="Guide.md">
+			<Filter>Resource Files</Filter>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<ResourceCompile Include="Safe.rc">
+			<Filter>Resource Files</Filter>
+		</ResourceCompile>
+	</ItemGroup>
 </Project>

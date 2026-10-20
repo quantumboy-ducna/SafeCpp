@@ -1,824 +1,855 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug - Dynamic Library|ARM64">
-      <Configuration>Debug - Dynamic Library</Configuration>
-      <Platform>ARM64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug - Dynamic Library|x64">
-      <Configuration>Debug - Dynamic Library</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug - Static Library|ARM64">
-      <Configuration>Debug - Static Library</Configuration>
-      <Platform>ARM64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug - Static Library|x64">
-      <Configuration>Debug - Static Library</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release - Dynamic Library|ARM64">
-      <Configuration>Release - Dynamic Library</Configuration>
-      <Platform>ARM64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release - Dynamic Library|x64">
-      <Configuration>Release - Dynamic Library</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release - Static Library|ARM64">
-      <Configuration>Release - Static Library</Configuration>
-      <Platform>ARM64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release - Static Library|x64">
-      <Configuration>Release - Static Library</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-  </ItemGroup>
-  <PropertyGroup Label="Globals">
-    <VCProjectVersion>18.0</VCProjectVersion>
-    <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{3cdfbf33-058b-4742-8b90-f92fd282765a}</ProjectGuid>
-    <RootNamespace>Safe</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-  </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Static Library|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v145</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
-    <SpectreMitigation>Spectre</SpectreMitigation>
-    <MSVCPreviewEnabled>false</MSVCPreviewEnabled>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Static Library|ARM64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v145</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
-    <SpectreMitigation>Spectre</SpectreMitigation>
-    <MSVCPreviewEnabled>false</MSVCPreviewEnabled>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Dynamic Library|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v145</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
-    <SpectreMitigation>Spectre</SpectreMitigation>
-    <MSVCPreviewEnabled>false</MSVCPreviewEnabled>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Dynamic Library|ARM64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v145</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
-    <SpectreMitigation>Spectre</SpectreMitigation>
-    <MSVCPreviewEnabled>false</MSVCPreviewEnabled>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release - Static Library|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v145</PlatformToolset>
-    <WholeProgramOptimization>false</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
-    <SpectreMitigation>Spectre</SpectreMitigation>
-    <MSVCPreviewEnabled>false</MSVCPreviewEnabled>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release - Static Library|ARM64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v145</PlatformToolset>
-    <WholeProgramOptimization>false</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
-    <SpectreMitigation>Spectre</SpectreMitigation>
-    <MSVCPreviewEnabled>false</MSVCPreviewEnabled>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release - Dynamic Library|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v145</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
-    <SpectreMitigation>Spectre</SpectreMitigation>
-    <MSVCPreviewEnabled>false</MSVCPreviewEnabled>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release - Dynamic Library|ARM64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v145</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
-    <SpectreMitigation>Spectre</SpectreMitigation>
-    <MSVCPreviewEnabled>false</MSVCPreviewEnabled>
-  </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <ImportGroup Label="ExtensionSettings">
-  </ImportGroup>
-  <ImportGroup Label="Shared">
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Static Library|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Static Library|ARM64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Dynamic Library|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Dynamic Library|ARM64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release - Static Library|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release - Static Library|ARM64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release - Dynamic Library|x64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release - Dynamic Library|ARM64'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Static Library|x64'">
-    <TargetExt>.sll</TargetExt>
-    <ManagedAssembly>false</ManagedAssembly>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <LinkDelaySign>false</LinkDelaySign>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Static Library|ARM64'">
-    <TargetExt>.sll</TargetExt>
-    <ManagedAssembly>false</ManagedAssembly>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <LinkDelaySign>false</LinkDelaySign>
-    <BuildAsX>false</BuildAsX>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Dynamic Library|x64'">
-    <TargetExt>.dll</TargetExt>
-    <ManagedAssembly>false</ManagedAssembly>
-    <LinkDelaySign>false</LinkDelaySign>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Dynamic Library|ARM64'">
-    <TargetExt>.dll</TargetExt>
-    <ManagedAssembly>false</ManagedAssembly>
-    <LinkDelaySign>false</LinkDelaySign>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <BuildAsX>false</BuildAsX>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release - Static Library|x64'">
-    <TargetExt>.sll</TargetExt>
-    <ManagedAssembly>false</ManagedAssembly>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <LinkDelaySign>false</LinkDelaySign>
-    <LinkIncremental>false</LinkIncremental>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release - Static Library|ARM64'">
-    <TargetExt>.sll</TargetExt>
-    <ManagedAssembly>false</ManagedAssembly>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <LinkDelaySign>false</LinkDelaySign>
-    <LinkIncremental>false</LinkIncremental>
-    <BuildAsX>false</BuildAsX>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release - Dynamic Library|x64'">
-    <TargetExt>.dll</TargetExt>
-    <ManagedAssembly>false</ManagedAssembly>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <LinkDelaySign>false</LinkDelaySign>
-    <LinkIncremental>false</LinkIncremental>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release - Dynamic Library|ARM64'">
-    <TargetExt>.dll</TargetExt>
-    <ManagedAssembly>false</ManagedAssembly>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <LinkDelaySign>false</LinkDelaySign>
-    <LinkIncremental>false</LinkIncremental>
-    <BuildAsX>false</BuildAsX>
-  </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Static Library|x64'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;CPP_SAFE_STATICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions);</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <PrecompiledHeaderFile>
-      </PrecompiledHeaderFile>
-      <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <CompileAsManaged>false</CompileAsManaged>
-      <CompileAsWinRT>false</CompileAsWinRT>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <OmitFramePointers>false</OmitFramePointers>
-      <UseStandardPreprocessor>true</UseStandardPreprocessor>
-      <StringPooling>true</StringPooling>
-      <ControlFlowGuard>Guard</ControlFlowGuard>
-      <FunctionLevelLinking>false</FunctionLevelLinking>
-      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
-      <FloatingPointExceptions>true</FloatingPointExceptions>
-      <CreateHotpatchableImage>false</CreateHotpatchableImage>
-      <IntelJCCErratum>true</IntelJCCErratum>
-      <GuardEHContMetadata>true</GuardEHContMetadata>
-      <GuardSignedReturns>
-      </GuardSignedReturns>
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
-      <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <OpenMPSupport>false</OpenMPSupport>
-      <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
-      <ExternalTemplatesDiagnostics>true</ExternalTemplatesDiagnostics>
-      <CompileAs>CompileAsCpp</CompileAs>
-      <ErrorReporting>None</ErrorReporting>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <Optimization>MinSpace</Optimization>
-      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalOptions>/bigobj /utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <FloatingPointModel>Precise</FloatingPointModel>
-      <TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
-      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
-      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-    </ClCompile>
-    <Lib>
-      <UseUnicodeResponseFiles>true</UseUnicodeResponseFiles>
-      <ErrorReporting>NoErrorReport</ErrorReporting>
-      <TreatLibWarningAsErrors>false</TreatLibWarningAsErrors>
-      <SubSystem>Console</SubSystem>
-      <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
-      <UseDynamicDebugging>false</UseDynamicDebugging>
-      <Verbose>false</Verbose>
-    </Lib>
-    <CustomBuildStep>
-      <TreatOutputAsContent>false</TreatOutputAsContent>
-    </CustomBuildStep>
-    <ResourceCompile>
-      <NullTerminateStrings>false</NullTerminateStrings>
-      <ShowProgress>false</ShowProgress>
-    </ResourceCompile>
-    <Manifest>
-      <SuppressDependencyElement>false</SuppressDependencyElement>
-    </Manifest>
-    <Manifest>
-      <GenerateCategoryTags>false</GenerateCategoryTags>
-    </Manifest>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Static Library|ARM64'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;CPP_SAFE_STATICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions);</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <PrecompiledHeaderFile>
-      </PrecompiledHeaderFile>
-      <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <CompileAsManaged>false</CompileAsManaged>
-      <CompileAsWinRT>false</CompileAsWinRT>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <OmitFramePointers>false</OmitFramePointers>
-      <UseStandardPreprocessor>true</UseStandardPreprocessor>
-      <StringPooling>true</StringPooling>
-      <ControlFlowGuard>Guard</ControlFlowGuard>
-      <FunctionLevelLinking>false</FunctionLevelLinking>
-      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
-      <FloatingPointExceptions>true</FloatingPointExceptions>
-      <CreateHotpatchableImage>false</CreateHotpatchableImage>
-      <IntelJCCErratum>false</IntelJCCErratum>
-      <GuardEHContMetadata>false</GuardEHContMetadata>
-      <GuardSignedReturns>true</GuardSignedReturns>
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
-      <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <OpenMPSupport>false</OpenMPSupport>
-      <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
-      <ExternalTemplatesDiagnostics>true</ExternalTemplatesDiagnostics>
-      <CompileAs>CompileAsCpp</CompileAs>
-      <ErrorReporting>None</ErrorReporting>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <Optimization>MinSpace</Optimization>
-      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalOptions>/bigobj /utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <FloatingPointModel>Precise</FloatingPointModel>
-      <TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
-      <EnableEnhancedInstructionSet>CPUExtensionRequirementsARMv80</EnableEnhancedInstructionSet>
-      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-    </ClCompile>
-    <Lib>
-      <UseUnicodeResponseFiles>true</UseUnicodeResponseFiles>
-      <ErrorReporting>NoErrorReport</ErrorReporting>
-      <TreatLibWarningAsErrors>false</TreatLibWarningAsErrors>
-      <SubSystem>Console</SubSystem>
-      <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
-      <UseDynamicDebugging>false</UseDynamicDebugging>
-      <Verbose>false</Verbose>
-    </Lib>
-    <CustomBuildStep>
-      <TreatOutputAsContent>false</TreatOutputAsContent>
-    </CustomBuildStep>
-    <ResourceCompile>
-      <NullTerminateStrings>false</NullTerminateStrings>
-      <ShowProgress>false</ShowProgress>
-    </ResourceCompile>
-    <Manifest>
-      <SuppressDependencyElement>false</SuppressDependencyElement>
-    </Manifest>
-    <Manifest>
-      <GenerateCategoryTags>false</GenerateCategoryTags>
-    </Manifest>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Dynamic Library|x64'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;CPP_SAFE_DYNAMICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions);</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <PrecompiledHeaderFile>
-      </PrecompiledHeaderFile>
-      <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <CompileAsManaged>false</CompileAsManaged>
-      <CompileAsWinRT>false</CompileAsWinRT>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <OmitFramePointers>false</OmitFramePointers>
-      <UseStandardPreprocessor>true</UseStandardPreprocessor>
-      <StringPooling>true</StringPooling>
-      <ControlFlowGuard>Guard</ControlFlowGuard>
-      <FunctionLevelLinking>false</FunctionLevelLinking>
-      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
-      <FloatingPointExceptions>true</FloatingPointExceptions>
-      <CreateHotpatchableImage>false</CreateHotpatchableImage>
-      <IntelJCCErratum>true</IntelJCCErratum>
-      <GuardEHContMetadata>true</GuardEHContMetadata>
-      <GuardSignedReturns>
-      </GuardSignedReturns>
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
-      <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <OpenMPSupport>false</OpenMPSupport>
-      <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
-      <ExternalTemplatesDiagnostics>true</ExternalTemplatesDiagnostics>
-      <CompileAs>CompileAsCpp</CompileAs>
-      <ErrorReporting>None</ErrorReporting>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <Optimization>MinSpace</Optimization>
-      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalOptions>/bigobj /utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <FloatingPointModel>Precise</FloatingPointModel>
-      <TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
-      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
-      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-    </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <Version>2026.0</Version>
-      <PreventDllBinding>false</PreventDllBinding>
-      <TreatLinkerWarningAsErrors>false</TreatLinkerWarningAsErrors>
-      <LargeAddressAware>true</LargeAddressAware>
-      <TerminalServerAware>false</TerminalServerAware>
-      <OptimizeReferences>false</OptimizeReferences>
-      <EnableCOMDATFolding>false</EnableCOMDATFolding>
-      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
-      <WindowsMetadataLinkDelaySign>false</WindowsMetadataLinkDelaySign>
-      <SupportUnloadOfDelayLoadedDLL>true</SupportUnloadOfDelayLoadedDLL>
-      <SupportNobindOfDelayLoadedDLL>true</SupportNobindOfDelayLoadedDLL>
-      <CLRThreadAttribute>DefaultThreadingAttribute</CLRThreadAttribute>
-      <CLRUnmanagedCodeCheck>false</CLRUnmanagedCodeCheck>
-      <LinkErrorReporting>NoErrorReport</LinkErrorReporting>
-      <CLRSupportLastError>Disabled</CLRSupportLastError>
-      <CETCompat>true</CETCompat>
-      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <FixedBaseAddress>false</FixedBaseAddress>
-      <AssemblyDebug>true</AssemblyDebug>
-    </Link>
-    <Manifest>
-      <SuppressDependencyElement>false</SuppressDependencyElement>
-    </Manifest>
-    <Manifest>
-      <GenerateCategoryTags>false</GenerateCategoryTags>
-    </Manifest>
-    <CustomBuildStep>
-      <TreatOutputAsContent>false</TreatOutputAsContent>
-    </CustomBuildStep>
-    <ResourceCompile>
-      <NullTerminateStrings>false</NullTerminateStrings>
-      <ShowProgress>false</ShowProgress>
-    </ResourceCompile>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Dynamic Library|ARM64'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;CPP_SAFE_DYNAMICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions);</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <PrecompiledHeaderFile>
-      </PrecompiledHeaderFile>
-      <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <CompileAsManaged>false</CompileAsManaged>
-      <CompileAsWinRT>false</CompileAsWinRT>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <OmitFramePointers>false</OmitFramePointers>
-      <UseStandardPreprocessor>true</UseStandardPreprocessor>
-      <StringPooling>true</StringPooling>
-      <ControlFlowGuard>Guard</ControlFlowGuard>
-      <FunctionLevelLinking>false</FunctionLevelLinking>
-      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
-      <FloatingPointExceptions>true</FloatingPointExceptions>
-      <CreateHotpatchableImage>false</CreateHotpatchableImage>
-      <IntelJCCErratum>false</IntelJCCErratum>
-      <GuardEHContMetadata>false</GuardEHContMetadata>
-      <GuardSignedReturns>true</GuardSignedReturns>
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
-      <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <OpenMPSupport>false</OpenMPSupport>
-      <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
-      <ExternalTemplatesDiagnostics>true</ExternalTemplatesDiagnostics>
-      <CompileAs>CompileAsCpp</CompileAs>
-      <ErrorReporting>None</ErrorReporting>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <Optimization>MinSpace</Optimization>
-      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalOptions>/bigobj /utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <FloatingPointModel>Precise</FloatingPointModel>
-      <TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
-      <EnableEnhancedInstructionSet>CPUExtensionRequirementsARMv80</EnableEnhancedInstructionSet>
-      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-    </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <Version>2026.0</Version>
-      <PreventDllBinding>false</PreventDllBinding>
-      <TreatLinkerWarningAsErrors>false</TreatLinkerWarningAsErrors>
-      <LargeAddressAware>true</LargeAddressAware>
-      <TerminalServerAware>false</TerminalServerAware>
-      <OptimizeReferences>false</OptimizeReferences>
-      <EnableCOMDATFolding>false</EnableCOMDATFolding>
-      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
-      <WindowsMetadataLinkDelaySign>false</WindowsMetadataLinkDelaySign>
-      <SupportUnloadOfDelayLoadedDLL>true</SupportUnloadOfDelayLoadedDLL>
-      <SupportNobindOfDelayLoadedDLL>true</SupportNobindOfDelayLoadedDLL>
-      <CLRThreadAttribute>DefaultThreadingAttribute</CLRThreadAttribute>
-      <CLRUnmanagedCodeCheck>false</CLRUnmanagedCodeCheck>
-      <LinkErrorReporting>NoErrorReport</LinkErrorReporting>
-      <CLRSupportLastError>Disabled</CLRSupportLastError>
-      <CETCompat>false</CETCompat>
-      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <FixedBaseAddress>false</FixedBaseAddress>
-      <AssemblyDebug>true</AssemblyDebug>
-    </Link>
-    <Manifest>
-      <SuppressDependencyElement>false</SuppressDependencyElement>
-    </Manifest>
-    <Manifest>
-      <GenerateCategoryTags>false</GenerateCategoryTags>
-    </Manifest>
-    <CustomBuildStep>
-      <TreatOutputAsContent>false</TreatOutputAsContent>
-    </CustomBuildStep>
-    <ResourceCompile>
-      <NullTerminateStrings>false</NullTerminateStrings>
-      <ShowProgress>false</ShowProgress>
-    </ResourceCompile>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release - Static Library|x64'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <FunctionLevelLinking>false</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;CPP_SAFE_STATICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions);</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <PrecompiledHeaderFile>
-      </PrecompiledHeaderFile>
-      <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <CompileAsManaged>false</CompileAsManaged>
-      <CompileAsWinRT>false</CompileAsWinRT>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <OmitFramePointers>true</OmitFramePointers>
-      <UseStandardPreprocessor>true</UseStandardPreprocessor>
-      <StringPooling>true</StringPooling>
-      <ControlFlowGuard>Guard</ControlFlowGuard>
-      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
-      <FloatingPointExceptions>true</FloatingPointExceptions>
-      <CreateHotpatchableImage>false</CreateHotpatchableImage>
-      <IntelJCCErratum>true</IntelJCCErratum>
-      <GuardEHContMetadata>true</GuardEHContMetadata>
-      <GuardSignedReturns>
-      </GuardSignedReturns>
-      <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <OpenMPSupport>false</OpenMPSupport>
-      <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
-      <ExternalTemplatesDiagnostics>true</ExternalTemplatesDiagnostics>
-      <CompileAs>CompileAsCpp</CompileAs>
-      <ErrorReporting>None</ErrorReporting>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalOptions>/bigobj /Ob3 /utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <FloatingPointModel>Precise</FloatingPointModel>
-      <TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
-      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
-    </ClCompile>
-    <Lib>
-      <UseUnicodeResponseFiles>true</UseUnicodeResponseFiles>
-      <ErrorReporting>NoErrorReport</ErrorReporting>
-      <TreatLibWarningAsErrors>false</TreatLibWarningAsErrors>
-      <SubSystem>Console</SubSystem>
-      <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
-      <UseDynamicDebugging>false</UseDynamicDebugging>
-      <Verbose>false</Verbose>
-    </Lib>
-    <CustomBuildStep>
-      <TreatOutputAsContent>false</TreatOutputAsContent>
-    </CustomBuildStep>
-    <ResourceCompile>
-      <NullTerminateStrings>false</NullTerminateStrings>
-      <ShowProgress>false</ShowProgress>
-    </ResourceCompile>
-    <Manifest>
-      <SuppressDependencyElement>false</SuppressDependencyElement>
-    </Manifest>
-    <Manifest>
-      <GenerateCategoryTags>false</GenerateCategoryTags>
-    </Manifest>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release - Static Library|ARM64'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <FunctionLevelLinking>false</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;CPP_SAFE_STATICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions);</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <PrecompiledHeaderFile>
-      </PrecompiledHeaderFile>
-      <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <CompileAsManaged>false</CompileAsManaged>
-      <CompileAsWinRT>false</CompileAsWinRT>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <OmitFramePointers>true</OmitFramePointers>
-      <UseStandardPreprocessor>true</UseStandardPreprocessor>
-      <StringPooling>true</StringPooling>
-      <ControlFlowGuard>Guard</ControlFlowGuard>
-      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
-      <FloatingPointExceptions>true</FloatingPointExceptions>
-      <CreateHotpatchableImage>false</CreateHotpatchableImage>
-      <IntelJCCErratum>false</IntelJCCErratum>
-      <GuardEHContMetadata>false</GuardEHContMetadata>
-      <GuardSignedReturns>true</GuardSignedReturns>
-      <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <OpenMPSupport>false</OpenMPSupport>
-      <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
-      <ExternalTemplatesDiagnostics>true</ExternalTemplatesDiagnostics>
-      <CompileAs>CompileAsCpp</CompileAs>
-      <ErrorReporting>None</ErrorReporting>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalOptions>/bigobj /Ob3 /utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <FloatingPointModel>Precise</FloatingPointModel>
-      <TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
-      <EnableEnhancedInstructionSet>CPUExtensionRequirementsARMv80</EnableEnhancedInstructionSet>
-    </ClCompile>
-    <Lib>
-      <UseUnicodeResponseFiles>true</UseUnicodeResponseFiles>
-      <ErrorReporting>NoErrorReport</ErrorReporting>
-      <TreatLibWarningAsErrors>false</TreatLibWarningAsErrors>
-      <SubSystem>Console</SubSystem>
-      <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
-      <UseDynamicDebugging>false</UseDynamicDebugging>
-      <Verbose>false</Verbose>
-    </Lib>
-    <CustomBuildStep>
-      <TreatOutputAsContent>false</TreatOutputAsContent>
-    </CustomBuildStep>
-    <ResourceCompile>
-      <NullTerminateStrings>false</NullTerminateStrings>
-      <ShowProgress>false</ShowProgress>
-    </ResourceCompile>
-    <Manifest>
-      <SuppressDependencyElement>false</SuppressDependencyElement>
-    </Manifest>
-    <Manifest>
-      <GenerateCategoryTags>false</GenerateCategoryTags>
-    </Manifest>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release - Dynamic Library|x64'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <FunctionLevelLinking>false</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;CPP_SAFE_DYNAMICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions);</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <PrecompiledHeaderFile>
-      </PrecompiledHeaderFile>
-      <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <CompileAsManaged>false</CompileAsManaged>
-      <CompileAsWinRT>false</CompileAsWinRT>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <OmitFramePointers>true</OmitFramePointers>
-      <UseStandardPreprocessor>true</UseStandardPreprocessor>
-      <StringPooling>true</StringPooling>
-      <ControlFlowGuard>Guard</ControlFlowGuard>
-      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
-      <FloatingPointExceptions>true</FloatingPointExceptions>
-      <CreateHotpatchableImage>false</CreateHotpatchableImage>
-      <IntelJCCErratum>true</IntelJCCErratum>
-      <GuardEHContMetadata>true</GuardEHContMetadata>
-      <GuardSignedReturns>
-      </GuardSignedReturns>
-      <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <OpenMPSupport>false</OpenMPSupport>
-      <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
-      <ExternalTemplatesDiagnostics>true</ExternalTemplatesDiagnostics>
-      <CompileAs>CompileAsCpp</CompileAs>
-      <ErrorReporting>None</ErrorReporting>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalOptions>/bigobj /Ob3 /utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <FloatingPointModel>Precise</FloatingPointModel>
-      <TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
-      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
-    </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <Version>2026.0</Version>
-      <PreventDllBinding>false</PreventDllBinding>
-      <TreatLinkerWarningAsErrors>false</TreatLinkerWarningAsErrors>
-      <LargeAddressAware>true</LargeAddressAware>
-      <TerminalServerAware>false</TerminalServerAware>
-      <OptimizeReferences>false</OptimizeReferences>
-      <EnableCOMDATFolding>false</EnableCOMDATFolding>
-      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
-      <WindowsMetadataLinkDelaySign>false</WindowsMetadataLinkDelaySign>
-      <SupportUnloadOfDelayLoadedDLL>true</SupportUnloadOfDelayLoadedDLL>
-      <SupportNobindOfDelayLoadedDLL>true</SupportNobindOfDelayLoadedDLL>
-      <CLRThreadAttribute>DefaultThreadingAttribute</CLRThreadAttribute>
-      <CLRUnmanagedCodeCheck>false</CLRUnmanagedCodeCheck>
-      <LinkErrorReporting>NoErrorReport</LinkErrorReporting>
-      <CLRSupportLastError>Disabled</CLRSupportLastError>
-      <CETCompat>true</CETCompat>
-      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <FixedBaseAddress>false</FixedBaseAddress>
-      <AssemblyDebug>false</AssemblyDebug>
-      <LinkStatus>true</LinkStatus>
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-    </Link>
-    <Manifest>
-      <SuppressDependencyElement>false</SuppressDependencyElement>
-    </Manifest>
-    <Manifest>
-      <GenerateCategoryTags>false</GenerateCategoryTags>
-    </Manifest>
-    <CustomBuildStep>
-      <TreatOutputAsContent>false</TreatOutputAsContent>
-    </CustomBuildStep>
-    <ResourceCompile>
-      <NullTerminateStrings>false</NullTerminateStrings>
-      <ShowProgress>false</ShowProgress>
-    </ResourceCompile>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release - Dynamic Library|ARM64'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <FunctionLevelLinking>false</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;CPP_SAFE_DYNAMICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions);</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <PrecompiledHeaderFile>
-      </PrecompiledHeaderFile>
-      <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <CompileAsManaged>false</CompileAsManaged>
-      <CompileAsWinRT>false</CompileAsWinRT>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <OmitFramePointers>true</OmitFramePointers>
-      <UseStandardPreprocessor>true</UseStandardPreprocessor>
-      <StringPooling>true</StringPooling>
-      <ControlFlowGuard>Guard</ControlFlowGuard>
-      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
-      <FloatingPointExceptions>true</FloatingPointExceptions>
-      <CreateHotpatchableImage>false</CreateHotpatchableImage>
-      <IntelJCCErratum>false</IntelJCCErratum>
-      <GuardEHContMetadata>false</GuardEHContMetadata>
-      <GuardSignedReturns>true</GuardSignedReturns>
-      <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <OpenMPSupport>false</OpenMPSupport>
-      <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
-      <ExternalTemplatesDiagnostics>true</ExternalTemplatesDiagnostics>
-      <CompileAs>CompileAsCpp</CompileAs>
-      <ErrorReporting>None</ErrorReporting>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalOptions>/bigobj /Ob3 /utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <FloatingPointModel>Precise</FloatingPointModel>
-      <TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
-      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <EnableEnhancedInstructionSet>CPUExtensionRequirementsARMv80</EnableEnhancedInstructionSet>
-    </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <Version>2026.0</Version>
-      <PreventDllBinding>false</PreventDllBinding>
-      <TreatLinkerWarningAsErrors>false</TreatLinkerWarningAsErrors>
-      <LargeAddressAware>true</LargeAddressAware>
-      <TerminalServerAware>false</TerminalServerAware>
-      <OptimizeReferences>false</OptimizeReferences>
-      <EnableCOMDATFolding>false</EnableCOMDATFolding>
-      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
-      <WindowsMetadataLinkDelaySign>false</WindowsMetadataLinkDelaySign>
-      <SupportUnloadOfDelayLoadedDLL>true</SupportUnloadOfDelayLoadedDLL>
-      <SupportNobindOfDelayLoadedDLL>true</SupportNobindOfDelayLoadedDLL>
-      <CLRThreadAttribute>DefaultThreadingAttribute</CLRThreadAttribute>
-      <CLRUnmanagedCodeCheck>false</CLRUnmanagedCodeCheck>
-      <LinkErrorReporting>NoErrorReport</LinkErrorReporting>
-      <CLRSupportLastError>Disabled</CLRSupportLastError>
-      <CETCompat>false</CETCompat>
-      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <FixedBaseAddress>false</FixedBaseAddress>
-      <AssemblyDebug>false</AssemblyDebug>
-      <LinkStatus>true</LinkStatus>
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-    </Link>
-    <Manifest>
-      <SuppressDependencyElement>false</SuppressDependencyElement>
-    </Manifest>
-    <Manifest>
-      <GenerateCategoryTags>false</GenerateCategoryTags>
-    </Manifest>
-    <CustomBuildStep>
-      <TreatOutputAsContent>false</TreatOutputAsContent>
-    </CustomBuildStep>
-    <ResourceCompile>
-      <NullTerminateStrings>false</NullTerminateStrings>
-      <ShowProgress>false</ShowProgress>
-    </ResourceCompile>
-  </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="Safe.h" />
-    <ClInclude Include="SafeContextBase.h" />
-    <ClInclude Include="SafeContextException.h" />
-    <ClInclude Include="SafeEvent.h" />
-    <ClInclude Include="SafeFunction.h" />
-    <ClInclude Include="SafeMemoryChunk.h" />
-    <ClInclude Include="SafeNamespace.h" />
-    <ClInclude Include="SafeString.h" />
-    <ClInclude Include="SafeTrade.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Safe.cpp" />
-    <ClCompile Include="SafeContextBase.cpp" />
-    <ClCompile Include="SafeContextException.cpp" />
-    <ClCompile Include="SafeEvent.cpp" />
-    <ClCompile Include="SafeFunction.cpp" />
-    <ClCompile Include="SafeMemoryChunk.cpp" />
-    <ClCompile Include="SafeString.cpp" />
-    <ClCompile Include="SafeTrade.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Reference.md">
-      <SubType>
-      </SubType>
-    </None>
-    <None Include="Guide.md">
-      <SubType>
-      </SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Safe.rc" />
-  </ItemGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
+	<ItemGroup Label="ProjectConfigurations">
+		<ProjectConfiguration Include="Debug - Dynamic Library|ARM64">
+			<Configuration>Debug - Dynamic Library</Configuration>
+			<Platform>ARM64</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="Debug - Dynamic Library|x64">
+			<Configuration>Debug - Dynamic Library</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="Debug - Static Library|ARM64">
+			<Configuration>Debug - Static Library</Configuration>
+			<Platform>ARM64</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="Debug - Static Library|x64">
+			<Configuration>Debug - Static Library</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="Release - Dynamic Library|ARM64">
+			<Configuration>Release - Dynamic Library</Configuration>
+			<Platform>ARM64</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="Release - Dynamic Library|x64">
+			<Configuration>Release - Dynamic Library</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="Release - Static Library|ARM64">
+			<Configuration>Release - Static Library</Configuration>
+			<Platform>ARM64</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="Release - Static Library|x64">
+			<Configuration>Release - Static Library</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
+	</ItemGroup>
+	<PropertyGroup Label="Globals">
+		<VCProjectVersion>18.0</VCProjectVersion>
+		<Keyword>Win32Proj</Keyword>
+		<ProjectGuid>{3cdfbf33-058b-4742-8b90-f92fd282765a}</ProjectGuid>
+		<RootNamespace>Safe</RootNamespace>
+		<WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+	</PropertyGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+	<PropertyGroup
+		Condition="'$(Configuration)|$(Platform)'=='Debug - Static Library|x64'"
+		Label="Configuration"
+	>
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<UseDebugLibraries>true</UseDebugLibraries>
+		<PlatformToolset>v145</PlatformToolset>
+		<CharacterSet>Unicode</CharacterSet>
+		<SpectreMitigation>Spectre</SpectreMitigation>
+		<MSVCPreviewEnabled>false</MSVCPreviewEnabled>
+	</PropertyGroup>
+	<PropertyGroup
+		Condition="'$(Configuration)|$(Platform)'=='Debug - Static Library|ARM64'"
+		Label="Configuration"
+	>
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<UseDebugLibraries>true</UseDebugLibraries>
+		<PlatformToolset>v145</PlatformToolset>
+		<CharacterSet>Unicode</CharacterSet>
+		<SpectreMitigation>Spectre</SpectreMitigation>
+		<MSVCPreviewEnabled>false</MSVCPreviewEnabled>
+	</PropertyGroup>
+	<PropertyGroup
+		Condition="'$(Configuration)|$(Platform)'=='Debug - Dynamic Library|x64'"
+		Label="Configuration"
+	>
+		<ConfigurationType>DynamicLibrary</ConfigurationType>
+		<UseDebugLibraries>true</UseDebugLibraries>
+		<PlatformToolset>v145</PlatformToolset>
+		<CharacterSet>Unicode</CharacterSet>
+		<SpectreMitigation>Spectre</SpectreMitigation>
+		<MSVCPreviewEnabled>false</MSVCPreviewEnabled>
+	</PropertyGroup>
+	<PropertyGroup
+		Condition="'$(Configuration)|$(Platform)'=='Debug - Dynamic Library|ARM64'"
+		Label="Configuration"
+	>
+		<ConfigurationType>DynamicLibrary</ConfigurationType>
+		<UseDebugLibraries>true</UseDebugLibraries>
+		<PlatformToolset>v145</PlatformToolset>
+		<CharacterSet>Unicode</CharacterSet>
+		<SpectreMitigation>Spectre</SpectreMitigation>
+		<MSVCPreviewEnabled>false</MSVCPreviewEnabled>
+	</PropertyGroup>
+	<PropertyGroup
+		Condition="'$(Configuration)|$(Platform)'=='Release - Static Library|x64'"
+		Label="Configuration"
+	>
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<UseDebugLibraries>false</UseDebugLibraries>
+		<PlatformToolset>v145</PlatformToolset>
+		<WholeProgramOptimization>false</WholeProgramOptimization>
+		<CharacterSet>Unicode</CharacterSet>
+		<SpectreMitigation>Spectre</SpectreMitigation>
+		<MSVCPreviewEnabled>false</MSVCPreviewEnabled>
+	</PropertyGroup>
+	<PropertyGroup
+		Condition="'$(Configuration)|$(Platform)'=='Release - Static Library|ARM64'"
+		Label="Configuration"
+	>
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<UseDebugLibraries>false</UseDebugLibraries>
+		<PlatformToolset>v145</PlatformToolset>
+		<WholeProgramOptimization>false</WholeProgramOptimization>
+		<CharacterSet>Unicode</CharacterSet>
+		<SpectreMitigation>Spectre</SpectreMitigation>
+		<MSVCPreviewEnabled>false</MSVCPreviewEnabled>
+	</PropertyGroup>
+	<PropertyGroup
+		Condition="'$(Configuration)|$(Platform)'=='Release - Dynamic Library|x64'"
+		Label="Configuration"
+	>
+		<ConfigurationType>DynamicLibrary</ConfigurationType>
+		<UseDebugLibraries>false</UseDebugLibraries>
+		<PlatformToolset>v145</PlatformToolset>
+		<WholeProgramOptimization>true</WholeProgramOptimization>
+		<CharacterSet>Unicode</CharacterSet>
+		<SpectreMitigation>Spectre</SpectreMitigation>
+		<MSVCPreviewEnabled>false</MSVCPreviewEnabled>
+	</PropertyGroup>
+	<PropertyGroup
+		Condition="'$(Configuration)|$(Platform)'=='Release - Dynamic Library|ARM64'"
+		Label="Configuration"
+	>
+		<ConfigurationType>DynamicLibrary</ConfigurationType>
+		<UseDebugLibraries>false</UseDebugLibraries>
+		<PlatformToolset>v145</PlatformToolset>
+		<WholeProgramOptimization>true</WholeProgramOptimization>
+		<CharacterSet>Unicode</CharacterSet>
+		<SpectreMitigation>Spectre</SpectreMitigation>
+		<MSVCPreviewEnabled>false</MSVCPreviewEnabled>
+	</PropertyGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+	<ImportGroup Label="ExtensionSettings" />
+	<ImportGroup Label="Shared" />
+	<ImportGroup
+		Condition="'$(Configuration)|$(Platform)'=='Debug - Static Library|x64'"
+		Label="PropertySheets"
+	>
+		<Import
+			Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props"
+			Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')"
+			Label="LocalAppDataPlatform"
+		/>
+	</ImportGroup>
+	<ImportGroup
+		Condition="'$(Configuration)|$(Platform)'=='Debug - Static Library|ARM64'"
+		Label="PropertySheets"
+	>
+		<Import
+			Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props"
+			Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')"
+			Label="LocalAppDataPlatform"
+		/>
+	</ImportGroup>
+	<ImportGroup
+		Condition="'$(Configuration)|$(Platform)'=='Debug - Dynamic Library|x64'"
+		Label="PropertySheets"
+	>
+		<Import
+			Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props"
+			Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')"
+			Label="LocalAppDataPlatform"
+		/>
+	</ImportGroup>
+	<ImportGroup
+		Condition="'$(Configuration)|$(Platform)'=='Debug - Dynamic Library|ARM64'"
+		Label="PropertySheets"
+	>
+		<Import
+			Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props"
+			Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')"
+			Label="LocalAppDataPlatform"
+		/>
+	</ImportGroup>
+	<ImportGroup
+		Condition="'$(Configuration)|$(Platform)'=='Release - Static Library|x64'"
+		Label="PropertySheets"
+	>
+		<Import
+			Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props"
+			Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')"
+			Label="LocalAppDataPlatform"
+		/>
+	</ImportGroup>
+	<ImportGroup
+		Condition="'$(Configuration)|$(Platform)'=='Release - Static Library|ARM64'"
+		Label="PropertySheets"
+	>
+		<Import
+			Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props"
+			Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')"
+			Label="LocalAppDataPlatform"
+		/>
+	</ImportGroup>
+	<ImportGroup
+		Condition="'$(Configuration)|$(Platform)'=='Release - Dynamic Library|x64'"
+		Label="PropertySheets"
+	>
+		<Import
+			Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props"
+			Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')"
+			Label="LocalAppDataPlatform"
+		/>
+	</ImportGroup>
+	<ImportGroup
+		Condition="'$(Configuration)|$(Platform)'=='Release - Dynamic Library|ARM64'"
+		Label="PropertySheets"
+	>
+		<Import
+			Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props"
+			Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')"
+			Label="LocalAppDataPlatform"
+		/>
+	</ImportGroup>
+	<PropertyGroup Label="UserMacros" />
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Static Library|x64'">
+		<TargetExt>.sll</TargetExt>
+		<ManagedAssembly>false</ManagedAssembly>
+		<RunCodeAnalysis>true</RunCodeAnalysis>
+		<LinkDelaySign>false</LinkDelaySign>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Static Library|ARM64'">
+		<TargetExt>.sll</TargetExt>
+		<ManagedAssembly>false</ManagedAssembly>
+		<RunCodeAnalysis>true</RunCodeAnalysis>
+		<LinkDelaySign>false</LinkDelaySign>
+		<BuildAsX>false</BuildAsX>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Dynamic Library|x64'">
+		<TargetExt>.dll</TargetExt>
+		<ManagedAssembly>false</ManagedAssembly>
+		<LinkDelaySign>false</LinkDelaySign>
+		<RunCodeAnalysis>true</RunCodeAnalysis>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Dynamic Library|ARM64'">
+		<TargetExt>.dll</TargetExt>
+		<ManagedAssembly>false</ManagedAssembly>
+		<LinkDelaySign>false</LinkDelaySign>
+		<RunCodeAnalysis>true</RunCodeAnalysis>
+		<BuildAsX>false</BuildAsX>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release - Static Library|x64'">
+		<TargetExt>.sll</TargetExt>
+		<ManagedAssembly>false</ManagedAssembly>
+		<RunCodeAnalysis>true</RunCodeAnalysis>
+		<LinkDelaySign>false</LinkDelaySign>
+		<LinkIncremental>false</LinkIncremental>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release - Static Library|ARM64'">
+		<TargetExt>.sll</TargetExt>
+		<ManagedAssembly>false</ManagedAssembly>
+		<RunCodeAnalysis>true</RunCodeAnalysis>
+		<LinkDelaySign>false</LinkDelaySign>
+		<LinkIncremental>false</LinkIncremental>
+		<BuildAsX>false</BuildAsX>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release - Dynamic Library|x64'">
+		<TargetExt>.dll</TargetExt>
+		<ManagedAssembly>false</ManagedAssembly>
+		<RunCodeAnalysis>true</RunCodeAnalysis>
+		<LinkDelaySign>false</LinkDelaySign>
+		<LinkIncremental>false</LinkIncremental>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release - Dynamic Library|ARM64'">
+		<TargetExt>.dll</TargetExt>
+		<ManagedAssembly>false</ManagedAssembly>
+		<RunCodeAnalysis>true</RunCodeAnalysis>
+		<LinkDelaySign>false</LinkDelaySign>
+		<LinkIncremental>false</LinkIncremental>
+		<BuildAsX>false</BuildAsX>
+	</PropertyGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Static Library|x64'">
+		<ClCompile>
+			<WarningLevel>Level3</WarningLevel>
+			<SDLCheck>true</SDLCheck>
+			<PreprocessorDefinitions>_DEBUG;CPP_SAFE_STATICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<ConformanceMode>true</ConformanceMode>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<PrecompiledHeaderFile />
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<CompileAsManaged>false</CompileAsManaged>
+			<CompileAsWinRT>false</CompileAsWinRT>
+			<MultiProcessorCompilation>true</MultiProcessorCompilation>
+			<OmitFramePointers>false</OmitFramePointers>
+			<UseStandardPreprocessor>true</UseStandardPreprocessor>
+			<StringPooling>true</StringPooling>
+			<ControlFlowGuard>Guard</ControlFlowGuard>
+			<FunctionLevelLinking>false</FunctionLevelLinking>
+			<EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+			<FloatingPointExceptions>true</FloatingPointExceptions>
+			<CreateHotpatchableImage>false</CreateHotpatchableImage>
+			<IntelJCCErratum>true</IntelJCCErratum>
+			<GuardEHContMetadata>true</GuardEHContMetadata>
+			<GuardSignedReturns />
+			<BasicRuntimeChecks>Default</BasicRuntimeChecks>
+			<EnforceTypeConversionRules>true</EnforceTypeConversionRules>
+			<RuntimeTypeInfo>true</RuntimeTypeInfo>
+			<OpenMPSupport>false</OpenMPSupport>
+			<UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
+			<ExternalTemplatesDiagnostics>true</ExternalTemplatesDiagnostics>
+			<CompileAs>CompileAsCpp</CompileAs>
+			<ErrorReporting>None</ErrorReporting>
+			<RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+			<Optimization>MinSpace</Optimization>
+			<FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+			<AdditionalOptions>/bigobj /utf-8 %(AdditionalOptions)</AdditionalOptions>
+			<FloatingPointModel>Precise</FloatingPointModel>
+			<TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
+			<EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+			<InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+		</ClCompile>
+		<Lib>
+			<UseUnicodeResponseFiles>true</UseUnicodeResponseFiles>
+			<ErrorReporting>NoErrorReport</ErrorReporting>
+			<TreatLibWarningAsErrors>false</TreatLibWarningAsErrors>
+			<SubSystem>Console</SubSystem>
+			<LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
+			<UseDynamicDebugging>false</UseDynamicDebugging>
+			<Verbose>false</Verbose>
+		</Lib>
+		<CustomBuildStep>
+			<TreatOutputAsContent>false</TreatOutputAsContent>
+		</CustomBuildStep>
+		<ResourceCompile>
+			<NullTerminateStrings>false</NullTerminateStrings>
+			<ShowProgress>false</ShowProgress>
+		</ResourceCompile>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Static Library|ARM64'">
+		<ClCompile>
+			<WarningLevel>Level3</WarningLevel>
+			<SDLCheck>true</SDLCheck>
+			<PreprocessorDefinitions>_DEBUG;CPP_SAFE_STATICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<ConformanceMode>true</ConformanceMode>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<PrecompiledHeaderFile />
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<CompileAsManaged>false</CompileAsManaged>
+			<CompileAsWinRT>false</CompileAsWinRT>
+			<MultiProcessorCompilation>true</MultiProcessorCompilation>
+			<OmitFramePointers>false</OmitFramePointers>
+			<UseStandardPreprocessor>true</UseStandardPreprocessor>
+			<StringPooling>true</StringPooling>
+			<ControlFlowGuard>Guard</ControlFlowGuard>
+			<FunctionLevelLinking>false</FunctionLevelLinking>
+			<EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+			<FloatingPointExceptions>true</FloatingPointExceptions>
+			<CreateHotpatchableImage>false</CreateHotpatchableImage>
+			<IntelJCCErratum>false</IntelJCCErratum>
+			<GuardEHContMetadata>false</GuardEHContMetadata>
+			<GuardSignedReturns>true</GuardSignedReturns>
+			<BasicRuntimeChecks>Default</BasicRuntimeChecks>
+			<EnforceTypeConversionRules>true</EnforceTypeConversionRules>
+			<RuntimeTypeInfo>true</RuntimeTypeInfo>
+			<OpenMPSupport>false</OpenMPSupport>
+			<UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
+			<ExternalTemplatesDiagnostics>true</ExternalTemplatesDiagnostics>
+			<CompileAs>CompileAsCpp</CompileAs>
+			<ErrorReporting>None</ErrorReporting>
+			<RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+			<Optimization>MinSpace</Optimization>
+			<FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+			<AdditionalOptions>/bigobj /utf-8 %(AdditionalOptions)</AdditionalOptions>
+			<FloatingPointModel>Precise</FloatingPointModel>
+			<TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
+			<EnableEnhancedInstructionSet>CPUExtensionRequirementsARMv80</EnableEnhancedInstructionSet>
+			<InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+		</ClCompile>
+		<Lib>
+			<UseUnicodeResponseFiles>true</UseUnicodeResponseFiles>
+			<ErrorReporting>NoErrorReport</ErrorReporting>
+			<TreatLibWarningAsErrors>false</TreatLibWarningAsErrors>
+			<SubSystem>Console</SubSystem>
+			<LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
+			<UseDynamicDebugging>false</UseDynamicDebugging>
+			<Verbose>false</Verbose>
+		</Lib>
+		<CustomBuildStep>
+			<TreatOutputAsContent>false</TreatOutputAsContent>
+		</CustomBuildStep>
+		<ResourceCompile>
+			<NullTerminateStrings>false</NullTerminateStrings>
+			<ShowProgress>false</ShowProgress>
+		</ResourceCompile>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Dynamic Library|x64'">
+		<ClCompile>
+			<WarningLevel>Level3</WarningLevel>
+			<SDLCheck>true</SDLCheck>
+			<PreprocessorDefinitions>_DEBUG;CPP_SAFE_DYNAMICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<ConformanceMode>true</ConformanceMode>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<PrecompiledHeaderFile />
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<CompileAsManaged>false</CompileAsManaged>
+			<CompileAsWinRT>false</CompileAsWinRT>
+			<MultiProcessorCompilation>true</MultiProcessorCompilation>
+			<OmitFramePointers>false</OmitFramePointers>
+			<UseStandardPreprocessor>true</UseStandardPreprocessor>
+			<StringPooling>true</StringPooling>
+			<ControlFlowGuard>Guard</ControlFlowGuard>
+			<FunctionLevelLinking>false</FunctionLevelLinking>
+			<EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+			<FloatingPointExceptions>true</FloatingPointExceptions>
+			<CreateHotpatchableImage>false</CreateHotpatchableImage>
+			<IntelJCCErratum>true</IntelJCCErratum>
+			<GuardEHContMetadata>true</GuardEHContMetadata>
+			<GuardSignedReturns />
+			<BasicRuntimeChecks>Default</BasicRuntimeChecks>
+			<EnforceTypeConversionRules>true</EnforceTypeConversionRules>
+			<RuntimeTypeInfo>true</RuntimeTypeInfo>
+			<OpenMPSupport>false</OpenMPSupport>
+			<UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
+			<ExternalTemplatesDiagnostics>true</ExternalTemplatesDiagnostics>
+			<CompileAs>CompileAsCpp</CompileAs>
+			<ErrorReporting>None</ErrorReporting>
+			<RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+			<Optimization>MinSpace</Optimization>
+			<FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+			<AdditionalOptions>/bigobj /utf-8 %(AdditionalOptions)</AdditionalOptions>
+			<FloatingPointModel>Precise</FloatingPointModel>
+			<TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
+			<EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+			<InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+		</ClCompile>
+		<Link>
+			<SubSystem>Console</SubSystem>
+			<GenerateDebugInformation>true</GenerateDebugInformation>
+			<Version>2026.0</Version>
+			<PreventDllBinding>false</PreventDllBinding>
+			<TreatLinkerWarningAsErrors>false</TreatLinkerWarningAsErrors>
+			<LargeAddressAware>true</LargeAddressAware>
+			<TerminalServerAware>false</TerminalServerAware>
+			<OptimizeReferences>false</OptimizeReferences>
+			<EnableCOMDATFolding>false</EnableCOMDATFolding>
+			<GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+			<WindowsMetadataLinkDelaySign>false</WindowsMetadataLinkDelaySign>
+			<SupportUnloadOfDelayLoadedDLL>true</SupportUnloadOfDelayLoadedDLL>
+			<SupportNobindOfDelayLoadedDLL>true</SupportNobindOfDelayLoadedDLL>
+			<CLRThreadAttribute>DefaultThreadingAttribute</CLRThreadAttribute>
+			<CLRUnmanagedCodeCheck>false</CLRUnmanagedCodeCheck>
+			<LinkErrorReporting>NoErrorReport</LinkErrorReporting>
+			<CLRSupportLastError>Disabled</CLRSupportLastError>
+			<CETCompat>true</CETCompat>
+			<ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+			<FixedBaseAddress>false</FixedBaseAddress>
+			<AssemblyDebug>true</AssemblyDebug>
+		</Link>
+		<Manifest>
+			<SuppressDependencyElement>false</SuppressDependencyElement>
+			<GenerateCategoryTags>false</GenerateCategoryTags>
+		</Manifest>
+		<CustomBuildStep>
+			<TreatOutputAsContent>false</TreatOutputAsContent>
+		</CustomBuildStep>
+		<ResourceCompile>
+			<NullTerminateStrings>false</NullTerminateStrings>
+			<ShowProgress>false</ShowProgress>
+		</ResourceCompile>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug - Dynamic Library|ARM64'">
+		<ClCompile>
+			<WarningLevel>Level3</WarningLevel>
+			<SDLCheck>true</SDLCheck>
+			<PreprocessorDefinitions>_DEBUG;CPP_SAFE_DYNAMICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<ConformanceMode>true</ConformanceMode>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<PrecompiledHeaderFile />
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<CompileAsManaged>false</CompileAsManaged>
+			<CompileAsWinRT>false</CompileAsWinRT>
+			<MultiProcessorCompilation>true</MultiProcessorCompilation>
+			<OmitFramePointers>false</OmitFramePointers>
+			<UseStandardPreprocessor>true</UseStandardPreprocessor>
+			<StringPooling>true</StringPooling>
+			<ControlFlowGuard>Guard</ControlFlowGuard>
+			<FunctionLevelLinking>false</FunctionLevelLinking>
+			<EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+			<FloatingPointExceptions>true</FloatingPointExceptions>
+			<CreateHotpatchableImage>false</CreateHotpatchableImage>
+			<IntelJCCErratum>false</IntelJCCErratum>
+			<GuardEHContMetadata>false</GuardEHContMetadata>
+			<GuardSignedReturns>true</GuardSignedReturns>
+			<BasicRuntimeChecks>Default</BasicRuntimeChecks>
+			<EnforceTypeConversionRules>true</EnforceTypeConversionRules>
+			<RuntimeTypeInfo>true</RuntimeTypeInfo>
+			<OpenMPSupport>false</OpenMPSupport>
+			<UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
+			<ExternalTemplatesDiagnostics>true</ExternalTemplatesDiagnostics>
+			<CompileAs>CompileAsCpp</CompileAs>
+			<ErrorReporting>None</ErrorReporting>
+			<RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+			<Optimization>MinSpace</Optimization>
+			<FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+			<AdditionalOptions>/bigobj /utf-8 %(AdditionalOptions)</AdditionalOptions>
+			<FloatingPointModel>Precise</FloatingPointModel>
+			<TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
+			<EnableEnhancedInstructionSet>CPUExtensionRequirementsARMv80</EnableEnhancedInstructionSet>
+			<InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+		</ClCompile>
+		<Link>
+			<SubSystem>Console</SubSystem>
+			<GenerateDebugInformation>true</GenerateDebugInformation>
+			<Version>2026.0</Version>
+			<PreventDllBinding>false</PreventDllBinding>
+			<TreatLinkerWarningAsErrors>false</TreatLinkerWarningAsErrors>
+			<LargeAddressAware>true</LargeAddressAware>
+			<TerminalServerAware>false</TerminalServerAware>
+			<OptimizeReferences>false</OptimizeReferences>
+			<EnableCOMDATFolding>false</EnableCOMDATFolding>
+			<GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+			<WindowsMetadataLinkDelaySign>false</WindowsMetadataLinkDelaySign>
+			<SupportUnloadOfDelayLoadedDLL>true</SupportUnloadOfDelayLoadedDLL>
+			<SupportNobindOfDelayLoadedDLL>true</SupportNobindOfDelayLoadedDLL>
+			<CLRThreadAttribute>DefaultThreadingAttribute</CLRThreadAttribute>
+			<CLRUnmanagedCodeCheck>false</CLRUnmanagedCodeCheck>
+			<LinkErrorReporting>NoErrorReport</LinkErrorReporting>
+			<CLRSupportLastError>Disabled</CLRSupportLastError>
+			<CETCompat>false</CETCompat>
+			<ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+			<FixedBaseAddress>false</FixedBaseAddress>
+			<AssemblyDebug>true</AssemblyDebug>
+		</Link>
+		<Manifest>
+			<SuppressDependencyElement>false</SuppressDependencyElement>
+			<GenerateCategoryTags>false</GenerateCategoryTags>
+		</Manifest>
+		<CustomBuildStep>
+			<TreatOutputAsContent>false</TreatOutputAsContent>
+		</CustomBuildStep>
+		<ResourceCompile>
+			<NullTerminateStrings>false</NullTerminateStrings>
+			<ShowProgress>false</ShowProgress>
+		</ResourceCompile>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release - Static Library|x64'">
+		<ClCompile>
+			<WarningLevel>Level3</WarningLevel>
+			<FunctionLevelLinking>false</FunctionLevelLinking>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<SDLCheck>true</SDLCheck>
+			<PreprocessorDefinitions>NDEBUG;CPP_SAFE_STATICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<ConformanceMode>true</ConformanceMode>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<PrecompiledHeaderFile />
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<CompileAsManaged>false</CompileAsManaged>
+			<CompileAsWinRT>false</CompileAsWinRT>
+			<MultiProcessorCompilation>true</MultiProcessorCompilation>
+			<OmitFramePointers>true</OmitFramePointers>
+			<UseStandardPreprocessor>true</UseStandardPreprocessor>
+			<StringPooling>true</StringPooling>
+			<ControlFlowGuard>Guard</ControlFlowGuard>
+			<EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+			<FloatingPointExceptions>true</FloatingPointExceptions>
+			<CreateHotpatchableImage>false</CreateHotpatchableImage>
+			<IntelJCCErratum>true</IntelJCCErratum>
+			<GuardEHContMetadata>true</GuardEHContMetadata>
+			<GuardSignedReturns />
+			<EnforceTypeConversionRules>true</EnforceTypeConversionRules>
+			<RuntimeTypeInfo>true</RuntimeTypeInfo>
+			<OpenMPSupport>false</OpenMPSupport>
+			<UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
+			<ExternalTemplatesDiagnostics>true</ExternalTemplatesDiagnostics>
+			<CompileAs>CompileAsCpp</CompileAs>
+			<ErrorReporting>None</ErrorReporting>
+			<FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+			<AdditionalOptions>/bigobj /Ob3 /utf-8 %(AdditionalOptions)</AdditionalOptions>
+			<FloatingPointModel>Precise</FloatingPointModel>
+			<TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
+			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+			<EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+			<EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+		</ClCompile>
+		<Lib>
+			<UseUnicodeResponseFiles>true</UseUnicodeResponseFiles>
+			<ErrorReporting>NoErrorReport</ErrorReporting>
+			<TreatLibWarningAsErrors>false</TreatLibWarningAsErrors>
+			<SubSystem>Console</SubSystem>
+			<LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
+			<UseDynamicDebugging>false</UseDynamicDebugging>
+			<Verbose>false</Verbose>
+		</Lib>
+		<CustomBuildStep>
+			<TreatOutputAsContent>false</TreatOutputAsContent>
+		</CustomBuildStep>
+		<ResourceCompile>
+			<NullTerminateStrings>false</NullTerminateStrings>
+			<ShowProgress>false</ShowProgress>
+		</ResourceCompile>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release - Static Library|ARM64'">
+		<ClCompile>
+			<WarningLevel>Level3</WarningLevel>
+			<FunctionLevelLinking>false</FunctionLevelLinking>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<SDLCheck>true</SDLCheck>
+			<PreprocessorDefinitions>NDEBUG;CPP_SAFE_STATICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<ConformanceMode>true</ConformanceMode>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<PrecompiledHeaderFile />
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<CompileAsManaged>false</CompileAsManaged>
+			<CompileAsWinRT>false</CompileAsWinRT>
+			<MultiProcessorCompilation>true</MultiProcessorCompilation>
+			<OmitFramePointers>true</OmitFramePointers>
+			<UseStandardPreprocessor>true</UseStandardPreprocessor>
+			<StringPooling>true</StringPooling>
+			<ControlFlowGuard>Guard</ControlFlowGuard>
+			<EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+			<FloatingPointExceptions>true</FloatingPointExceptions>
+			<CreateHotpatchableImage>false</CreateHotpatchableImage>
+			<IntelJCCErratum>false</IntelJCCErratum>
+			<GuardEHContMetadata>false</GuardEHContMetadata>
+			<GuardSignedReturns>true</GuardSignedReturns>
+			<EnforceTypeConversionRules>true</EnforceTypeConversionRules>
+			<RuntimeTypeInfo>true</RuntimeTypeInfo>
+			<OpenMPSupport>false</OpenMPSupport>
+			<UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
+			<ExternalTemplatesDiagnostics>true</ExternalTemplatesDiagnostics>
+			<CompileAs>CompileAsCpp</CompileAs>
+			<ErrorReporting>None</ErrorReporting>
+			<FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+			<AdditionalOptions>/bigobj /Ob3 /utf-8 %(AdditionalOptions)</AdditionalOptions>
+			<FloatingPointModel>Precise</FloatingPointModel>
+			<TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
+			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+			<EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+			<EnableEnhancedInstructionSet>CPUExtensionRequirementsARMv80</EnableEnhancedInstructionSet>
+		</ClCompile>
+		<Lib>
+			<UseUnicodeResponseFiles>true</UseUnicodeResponseFiles>
+			<ErrorReporting>NoErrorReport</ErrorReporting>
+			<TreatLibWarningAsErrors>false</TreatLibWarningAsErrors>
+			<SubSystem>Console</SubSystem>
+			<LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
+			<UseDynamicDebugging>false</UseDynamicDebugging>
+			<Verbose>false</Verbose>
+		</Lib>
+		<CustomBuildStep>
+			<TreatOutputAsContent>false</TreatOutputAsContent>
+		</CustomBuildStep>
+		<ResourceCompile>
+			<NullTerminateStrings>false</NullTerminateStrings>
+			<ShowProgress>false</ShowProgress>
+		</ResourceCompile>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release - Dynamic Library|x64'">
+		<ClCompile>
+			<WarningLevel>Level3</WarningLevel>
+			<FunctionLevelLinking>false</FunctionLevelLinking>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<SDLCheck>true</SDLCheck>
+			<PreprocessorDefinitions>NDEBUG;CPP_SAFE_DYNAMICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<ConformanceMode>true</ConformanceMode>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<PrecompiledHeaderFile />
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<CompileAsManaged>false</CompileAsManaged>
+			<CompileAsWinRT>false</CompileAsWinRT>
+			<MultiProcessorCompilation>true</MultiProcessorCompilation>
+			<OmitFramePointers>true</OmitFramePointers>
+			<UseStandardPreprocessor>true</UseStandardPreprocessor>
+			<StringPooling>true</StringPooling>
+			<ControlFlowGuard>Guard</ControlFlowGuard>
+			<EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+			<FloatingPointExceptions>true</FloatingPointExceptions>
+			<CreateHotpatchableImage>false</CreateHotpatchableImage>
+			<IntelJCCErratum>true</IntelJCCErratum>
+			<GuardEHContMetadata>true</GuardEHContMetadata>
+			<GuardSignedReturns />
+			<EnforceTypeConversionRules>true</EnforceTypeConversionRules>
+			<RuntimeTypeInfo>true</RuntimeTypeInfo>
+			<OpenMPSupport>false</OpenMPSupport>
+			<UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
+			<ExternalTemplatesDiagnostics>true</ExternalTemplatesDiagnostics>
+			<CompileAs>CompileAsCpp</CompileAs>
+			<ErrorReporting>None</ErrorReporting>
+			<FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+			<AdditionalOptions>/bigobj /Ob3 /utf-8 %(AdditionalOptions)</AdditionalOptions>
+			<FloatingPointModel>Precise</FloatingPointModel>
+			<TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
+			<EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+			<WholeProgramOptimization>true</WholeProgramOptimization>
+			<EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+		</ClCompile>
+		<Link>
+			<SubSystem>Console</SubSystem>
+			<GenerateDebugInformation>true</GenerateDebugInformation>
+			<Version>2026.0</Version>
+			<PreventDllBinding>false</PreventDllBinding>
+			<TreatLinkerWarningAsErrors>false</TreatLinkerWarningAsErrors>
+			<LargeAddressAware>true</LargeAddressAware>
+			<TerminalServerAware>false</TerminalServerAware>
+			<OptimizeReferences>false</OptimizeReferences>
+			<EnableCOMDATFolding>false</EnableCOMDATFolding>
+			<GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+			<WindowsMetadataLinkDelaySign>false</WindowsMetadataLinkDelaySign>
+			<SupportUnloadOfDelayLoadedDLL>true</SupportUnloadOfDelayLoadedDLL>
+			<SupportNobindOfDelayLoadedDLL>true</SupportNobindOfDelayLoadedDLL>
+			<CLRThreadAttribute>DefaultThreadingAttribute</CLRThreadAttribute>
+			<CLRUnmanagedCodeCheck>false</CLRUnmanagedCodeCheck>
+			<LinkErrorReporting>NoErrorReport</LinkErrorReporting>
+			<CLRSupportLastError>Disabled</CLRSupportLastError>
+			<CETCompat>true</CETCompat>
+			<ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+			<FixedBaseAddress>false</FixedBaseAddress>
+			<AssemblyDebug>false</AssemblyDebug>
+			<LinkStatus>true</LinkStatus>
+			<LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+		</Link>
+		<Manifest>
+			<SuppressDependencyElement>false</SuppressDependencyElement>
+			<GenerateCategoryTags>false</GenerateCategoryTags>
+		</Manifest>
+		<CustomBuildStep>
+			<TreatOutputAsContent>false</TreatOutputAsContent>
+		</CustomBuildStep>
+		<ResourceCompile>
+			<NullTerminateStrings>false</NullTerminateStrings>
+			<ShowProgress>false</ShowProgress>
+		</ResourceCompile>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release - Dynamic Library|ARM64'">
+		<ClCompile>
+			<WarningLevel>Level3</WarningLevel>
+			<FunctionLevelLinking>false</FunctionLevelLinking>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<SDLCheck>true</SDLCheck>
+			<PreprocessorDefinitions>NDEBUG;CPP_SAFE_DYNAMICALLY_LINKED_LIBRARY_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<ConformanceMode>true</ConformanceMode>
+			<LanguageStandard>stdcpp20</LanguageStandard>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<PrecompiledHeaderFile />
+			<LanguageStandard_C>stdc17</LanguageStandard_C>
+			<CompileAsManaged>false</CompileAsManaged>
+			<CompileAsWinRT>false</CompileAsWinRT>
+			<MultiProcessorCompilation>true</MultiProcessorCompilation>
+			<OmitFramePointers>true</OmitFramePointers>
+			<UseStandardPreprocessor>true</UseStandardPreprocessor>
+			<StringPooling>true</StringPooling>
+			<ControlFlowGuard>Guard</ControlFlowGuard>
+			<EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+			<FloatingPointExceptions>true</FloatingPointExceptions>
+			<CreateHotpatchableImage>false</CreateHotpatchableImage>
+			<IntelJCCErratum>false</IntelJCCErratum>
+			<GuardEHContMetadata>false</GuardEHContMetadata>
+			<GuardSignedReturns>true</GuardSignedReturns>
+			<EnforceTypeConversionRules>true</EnforceTypeConversionRules>
+			<RuntimeTypeInfo>true</RuntimeTypeInfo>
+			<OpenMPSupport>false</OpenMPSupport>
+			<UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
+			<ExternalTemplatesDiagnostics>true</ExternalTemplatesDiagnostics>
+			<CompileAs>CompileAsCpp</CompileAs>
+			<ErrorReporting>None</ErrorReporting>
+			<FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+			<AdditionalOptions>/bigobj /Ob3 /utf-8 %(AdditionalOptions)</AdditionalOptions>
+			<FloatingPointModel>Precise</FloatingPointModel>
+			<TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
+			<EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+			<WholeProgramOptimization>true</WholeProgramOptimization>
+			<EnableEnhancedInstructionSet>CPUExtensionRequirementsARMv80</EnableEnhancedInstructionSet>
+		</ClCompile>
+		<Link>
+			<SubSystem>Console</SubSystem>
+			<GenerateDebugInformation>true</GenerateDebugInformation>
+			<Version>2026.0</Version>
+			<PreventDllBinding>false</PreventDllBinding>
+			<TreatLinkerWarningAsErrors>false</TreatLinkerWarningAsErrors>
+			<LargeAddressAware>true</LargeAddressAware>
+			<TerminalServerAware>false</TerminalServerAware>
+			<OptimizeReferences>false</OptimizeReferences>
+			<EnableCOMDATFolding>false</EnableCOMDATFolding>
+			<GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+			<WindowsMetadataLinkDelaySign>false</WindowsMetadataLinkDelaySign>
+			<SupportUnloadOfDelayLoadedDLL>true</SupportUnloadOfDelayLoadedDLL>
+			<SupportNobindOfDelayLoadedDLL>true</SupportNobindOfDelayLoadedDLL>
+			<CLRThreadAttribute>DefaultThreadingAttribute</CLRThreadAttribute>
+			<CLRUnmanagedCodeCheck>false</CLRUnmanagedCodeCheck>
+			<LinkErrorReporting>NoErrorReport</LinkErrorReporting>
+			<CLRSupportLastError>Disabled</CLRSupportLastError>
+			<CETCompat>false</CETCompat>
+			<ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+			<FixedBaseAddress>false</FixedBaseAddress>
+			<AssemblyDebug>false</AssemblyDebug>
+			<LinkStatus>true</LinkStatus>
+			<LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+		</Link>
+		<Manifest>
+			<SuppressDependencyElement>false</SuppressDependencyElement>
+			<GenerateCategoryTags>false</GenerateCategoryTags>
+		</Manifest>
+		<CustomBuildStep>
+			<TreatOutputAsContent>false</TreatOutputAsContent>
+		</CustomBuildStep>
+		<ResourceCompile>
+			<NullTerminateStrings>false</NullTerminateStrings>
+			<ShowProgress>false</ShowProgress>
+		</ResourceCompile>
+	</ItemDefinitionGroup>
+	<ItemGroup>
+		<ClInclude Include="Safe.h" />
+		<ClInclude Include="SafeContextBase.h" />
+		<ClInclude Include="SafeContextException.h" />
+		<ClInclude Include="SafeEvent.h" />
+		<ClInclude Include="SafeFunction.h" />
+		<ClInclude Include="SafeMemoryChunk.h" />
+		<ClInclude Include="SafeNamespace.h" />
+		<ClInclude Include="SafeString.h" />
+		<ClInclude Include="SafeTrade.h" />
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="Safe.cpp" />
+		<ClCompile Include="SafeContextBase.cpp" />
+		<ClCompile Include="SafeContextException.cpp" />
+		<ClCompile Include="SafeEvent.cpp" />
+		<ClCompile Include="SafeFunction.cpp" />
+		<ClCompile Include="SafeMemoryChunk.cpp" />
+		<ClCompile Include="SafeString.cpp" />
+		<ClCompile Include="SafeTrade.cpp" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="Reference.md">
+			<SubType />
+		</None>
+		<None Include="Guide.md">
+			<SubType />
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<ResourceCompile Include="Safe.rc" />
+	</ItemGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+	<ImportGroup Label="ExtensionTargets" />
 </Project>
